@@ -1,3 +1,34 @@
 // Place all the styles related to the Groups controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+
+.my-card {
+  display: flex;
+  flex-direction: row;
+  flex-flow: row;
+  flex-basis: 2px;
+  border: #2E2F30 solid 1px;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+}
+
+.my-card-img-body {
+  display: inline-block;
+  width: 3.5rem;
+  height: 3.5rem;
+}
+
+.my-card-body{
+  display: inline-block;
+  padding: 0;
+  margin-left: 1em;
+}
+
+.my-card-container{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}

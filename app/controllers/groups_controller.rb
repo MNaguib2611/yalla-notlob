@@ -24,6 +24,13 @@ class GroupsController < ApplicationController
   # POST /groups
   # POST /groups.json
   def create
+    p params
+    # @errorMessage = ["AAALLLL"]
+    respond_to do |format|
+      format.js
+      # @errorMessage
+    end
+=begin
     @group = Group.new(group_params)
 
     respond_to do |format|
@@ -35,6 +42,7 @@ class GroupsController < ApplicationController
         format.json { render json: @group.errors, status: :unprocessable_entity }
       end
     end
+=end
   end
 
   # PATCH/PUT /groups/1

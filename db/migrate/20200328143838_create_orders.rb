@@ -1,7 +1,7 @@
 class CreateOrders < ActiveRecord::Migration[6.0]
   def change
     create_table :orders do |t|
-      t.string :type
+      t.string :order_type
       t.string :restaurant
       t.string :menu_img
       t.integer :joined_num

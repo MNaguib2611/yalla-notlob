@@ -4,7 +4,21 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    # @users = User.all
+    @orders = User.find(1).orders.to_a ## orders of the logged in user -- shall be modified
+    
+    @user_friends = User.find(1).friends
+    @friend_ids = []
+    @user_friends.each do |friend|
+      @friend_ids.push(friend.friend_id)
+    end
+    @friends_data = User.find(@friend_ids)
+    @friends_orders = []
+    @friends_data.each do |friend|
+      @friends_orders.push(id: friend.id, name: friend.name, orders: friend.orders.to_a)
+    end
+    
+    @info = [user_orders: @orders, friends_orders: @friends_orders]
   end
 
   # GET /users/1

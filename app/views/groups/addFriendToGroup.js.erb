@@ -1,0 +1,18 @@
+$('#email').val('')
+
+$('#add-friend-errors').empty()
+<% if @users %>
+$('.my-card-container').empty()
+  $('.my-card-container').append(`<% @users.each do |user| %><div class="my-card">
+            <div class="my-card-img-body">
+              <img class="card-img" src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" alt="Card image cap">
+            </div>
+            <div class="my-card-body">
+              <h6 class="card-title"><b><%= user.name %></b></h6>
+              <%= link_to "Remove", delete_friend_from_group_url(@group.id,user.id), method: :delete , class: "btn btn-danger btn-sm" %>
+            </div>
+          </div><% end %>`)
+<% end %>
+<% if @error %>
+$('#add-friend-errors').append('<div class="alert alert-danger"><li><%= @error %></li></div>')
+<% end %>

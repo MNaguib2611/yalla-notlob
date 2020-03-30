@@ -1,3 +1,12 @@
-//console.log()
-
-$('.res').append('<%= escape_javascript(@errorMessage[0])%>')
+$('#group-input').val('')
+$('#errors-group').empty()
+<% if @groups %>
+  $('#group-table').empty()
+  $('#group-table').append('<% @groups.each do |group|  %> <tr>\n' +
+      '            <td style="width: 15rem;"><h4><%= group.name %></h4></td>\n' +
+      '            <td><%= link_to (fa_icon ("user-plus"), class: "fa-2x btn-outline-dark"), group_details_url(group.id), method: :get %></td>\n' +
+      '            <td class="ml-5"><%= link_to (fa_icon ("times"), class: "fa-2x btn-outline-dark"), group, method: :delete %></td>\n' +
+      '          </tr> <% end %>')
+<% else %>
+  $('#errors-group').append('<div class="alert alert-danger"><% @groupErrors.each do |error|  %><li><%= error %></li><% end %></div>')
+<% end %>

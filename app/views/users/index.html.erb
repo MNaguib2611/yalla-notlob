@@ -32,7 +32,7 @@
 
             <ul style="list-style-type: none;">
                 <% @info[0][:user_orders].each do |order| %>
-                    <li> <a href="#"> <%= order.order_type %> on <%= order.created_at %> </a> </li>
+                    <li style="font-size: 20px;"> <a href="#"> <%= order.order_type %> on <%= order.created_at %> </a> </li>
                 <% end %>
             </ul>
         </fieldset>
@@ -43,7 +43,7 @@
             <ul style="list-style-type: none;">
                 <% @info[0][:friends_orders].each do |friend_order| %>
                     <% friend_order[:orders].each do |order| %>
-                      <li> <a href="#"> <%= friend_order[:name] %> </a> has created <a href="#">an order</a> for <a href="#"> <%= order.order_type %> </a> from <a href="#"> <%= order.restaurant %> </a>. </li>
+                      <li style="font-size: 20px; margin-bottom: 1rem;"> <a href="#"> <%= friend_order[:name] %></a> has created <a href="#">an order</a> for <a href="#"> <%= order.order_type %> </a> from <a href="#"> <%= order.restaurant %> </a>. </li>
                     <% end %>
                 <% end %>
             </ul>

@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    # @users = User.all
+    @users = User.all
     @orders = User.find(1).orders.to_a ## orders of the logged in user -- shall be modified
     
     @user_friends = User.find(1).friends

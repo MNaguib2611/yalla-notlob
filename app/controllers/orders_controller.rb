@@ -24,17 +24,27 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
-    @order = Order.new(order_params)
+    p "params values: #{params}"
+    p " user id : #{current_user.id}"
+    @order = Order.new
+    @order.order_type = params[:order_type]
+    @order.restaurant = params[:restaurant]
+    @order.menu_img = params[:menu_img]
+    @order.status =  "pending"
+    @order.user_id = current_user.id
+    @order.save()
+    redirect_to action: :new
+    # @order = Order.new(order_params)
 
-    respond_to do |format|
-      if @order.save
-        format.html { redirect_to @order, notice: 'Order was successfully created.' }
-        format.json { render :show, status: :created, location: @order }
-      else
-        format.html { render :new }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
-      end
-    end
+    # respond_to do |format|
+    #   if @order.save
+    #     format.html { redirect_to @order, notice: 'Order was successfully created.' }
+    #     format.json { render :show, status: :created, location: @order }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @order.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PATCH/PUT /orders/1

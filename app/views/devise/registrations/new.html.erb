@@ -20,8 +20,14 @@
         <div class="right">
           <span class="loginwith">Sign in with<br />social network</span>
           
-          <button class="social-signin facebook">Log in with facebook</button>
-          <button class="social-signin google">Log in with Google</button>
+          <button type="button"  class="social-signin facebook">Log in with facebook</button>
+          <button type="button" class="social-signin google">Log in with Google</button>
+          <br /><br />
+        
+             <h3>
+                 <%= render "devise/shared/links" %>
+             </h3>
+
         </div>
         <div class="or">OR</div>
     </div>
@@ -29,4 +35,4 @@
 
    
 
-<%= render "devise/shared/links" %>
+

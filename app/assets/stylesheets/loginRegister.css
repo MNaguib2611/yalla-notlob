@@ -118,6 +118,7 @@ input[type="submit"]:active {
   background-size: cover;
   background-position: center;
   border-radius: 0 2px 2px 0;
+  padding-left: 70px;
 }
 
 .right .loginwith {
@@ -155,11 +156,25 @@ button.social-signin:active {
 button.social-signin.facebook {
   background: #32508E;
 }
-/* 
-button.social-signin.twitter {
+
+/* button.social-signin.twitter {
   background: #55ACEE;
 } */
 
 button.social-signin.google {
   background: #DD4B39;
+}
+
+button.social-signin.normal {
+  background: rgb(90, 158, 132);
+}
+
+h3 a {
+  margin-top: 30px;
+  text-decoration-line: none;
+  color: #fff !important ;
+  font-weight: bolder;
+}
+a:hover {
+background-color: transparent !important;
 }

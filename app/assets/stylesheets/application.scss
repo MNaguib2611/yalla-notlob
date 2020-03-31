@@ -13,5 +13,32 @@
  *= require_tree .
  *= require_self
  */
- @import "bootstrap";
+@import "bootstrap";
 @import "font-awesome";
+
+#order-new .orderForm{
+   margin-top: 20px;
+}
+
+#order-new h2{
+   margin-top: 20px;
+}
+
+#order-new fieldset {
+   width: 100%;
+   height: auto;
+   border: solid 2px #ccc;
+}
+#order-new legend {
+   width: 40%;
+   margin-left: 5%;
+}
+
+#order-new .friendImage{
+   width: 90%;
+   height: 97%;
+}
+
+// #order-new .invitedDiv {
+//    display: block;
+// }

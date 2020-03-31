@@ -1,5 +1,74 @@
-<h1>New Order</h1>
-
-<%= render 'form', order: @order %>
-
-<%= link_to 'Back', orders_path %>
+<div class="container" id="order-new">
+   <h2> Add Order</h2>
+   
+   <div class="row orderForm">
+      <div class="col-md-6">
+         <%= form_for( @order, url: @order ) do |f| %>
+            <div class="form-group">
+               <select class="custom-select" name="order_type" required>
+                  <option value="">Order For</option>
+                  <option value="breackfast">Breackfast</option>
+                  <option value="launch">Launch</option>
+                  <option value="dinner">Dinner</option>
+               </select>
+            </div>
+            
+            <div class="form-group">
+               <input type="text" name="restaurant" class="form-control" id="inputAddress" placeholder="write the restaurant name" required>
+            </div>
+            
+            <div class="form-group invitedDiv">
+               <input type="text" name="invited" class="form-control" id="inputAddress" 
+               placeholder="you can write a friend name or group" required>
+               <input type="button" class="btn btn-success" value="+">
+            </div>
+   
+            <div class="custom-file">
+               <input type="file" class="custom-file-input" id="validatedCustomFile" name="menu_img" required>
+               <label class="custom-file-label" for="validatedCustomFile">Menu Image</label>
+            </div>
+            <br /><br />
+            <div class="form-group">
+               <button class="btn btn-primary btn-block" type="submit">Publish</button>
+            </div>
+         <% end %>
+      </div>
+      
+      <div  class="col-md-1">
+      </div>
+      
+      <div class="col-md-5">
+         <fieldset>
+            <legend>Friends Invited</legend>
+            <div class="card mb-3" style="max-width: 540px;">
+               <div class="row no-gutters">
+                  <div class="col-md-2">
+                     <%= image_tag ("/assets/user.png"), :class=>"friendImage"%>
+                  </div>
+                  <div class="col-md-8">
+                     <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <a href="#" class="btn btn-danger">Remove</a>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="card mb-3" style="max-width: 540px;">
+               <div class="row no-gutters">
+                  <div class="col-md-2">
+                     <%= image_tag ("/assets/user.png"), :class=>"friendImage"%>
+                  </div>
+                  <div class="col-md-8">
+                     <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <a href="#" class="btn btn-danger">Remove</a>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </fieldset>
+      </div>
+      
+   </div>
+   
+</div>

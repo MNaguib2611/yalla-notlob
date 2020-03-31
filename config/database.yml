@@ -13,14 +13,16 @@ default: &default
   adapter: mysql2
   encoding: utf8mb4
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host: 127.0.0.1
   username: root
-  password:
+  password: 41195
   socket: /opt/lampp/var/mysql/mysql.sock
 
 development:
   <<: *default
   database: yalla_notlob
   username: root
+  password: 41195
 
 
 # Warning: The database defined as "test" will be erased and

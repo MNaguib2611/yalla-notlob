@@ -4,7 +4,13 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.all
+    # @orders = Order.all
+    if current_user
+      @orders = User.find(current_user.id).orders
+      # p @groups
+    else
+      redirect_to new_user_session_path, notice: 'You are not logged in.'
+    end
   end
 
   # GET /orders/1

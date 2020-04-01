@@ -1,4 +1,43 @@
-<p id="notice"><%= notice %></p>
+<div>
+  <div class="table-stats order-table ov-h">
+    <table class="table ">
+      <thead>
+      <tr>
+        <!--        <th class="serial">#</th>-->
+        <th >Order</th>
+        <th>Restaurant</th>
+        <th>Invited</th>
+        <th>Joined</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <!--        <td class="serial">1.</td>-->
+        <% @orders.each do |order| %>
+          <td>
+            <%= order.order_type %>
+          </td>
+          <td> <%= order.restaurant %></td>
+          <td> <%= order.invited_num %></td>
+          <td> <%= order.joined_num %></td>
+          <td> <%= order.status %></td>
+          <td>
+            <button type="button" class="btn btn-primary btn-sm">View</button>
+            <button type="button" class="btn btn-success btn-sm">Finish</button>
+            <button type="button" class="btn btn-danger btn-sm">Cancel</button>
+          </td>
+
+          </tr>
+        <% end %>
+        </tbody>
+    </table>
+  </div> <!-- /.table-stats -->
+</div>
+
+<!--
+<p id="notice"><%#= notice %></p>
 
 <h1>Orders</h1>
 
@@ -10,16 +49,17 @@
   </thead>
 
   <tbody>
-    <% @orders.each do |order| %>
+    <%# @orders.each do |order| %>
       <tr>
-        <td><%= link_to 'Show', order %></td>
-        <td><%= link_to 'Edit', edit_order_path(order) %></td>
-        <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%#= link_to 'Show', order %></td>
+        <td><%#= link_to 'Edit', edit_order_path(order) %></td>
+        <td><%#= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
-    <% end %>
+    <%# end %>
   </tbody>
 </table>
 
 <br>
 
-<%= link_to 'New Order', new_order_path %>
+<%#= link_to 'New Order', new_order_path %>
+-->

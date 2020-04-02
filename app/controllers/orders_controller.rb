@@ -1,10 +1,15 @@
 class OrdersController < ApplicationController
+  # include Pagy::Backend
   before_action :set_order, only: [:show, :edit, :update, :destroy]
-
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.all
+    if current_user
+      # @pagy, @orders = pagy(User.find(current_user.id).orders.limit(2))
+      @pagy, @orders = pagy(User.find(current_user.id).orders,items: 2)
+    else
+      redirect_to new_user_session_path, notice: 'You are not logged in.'
+    end
   end
 
   # GET /orders/1
@@ -101,6 +106,16 @@ class OrdersController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def updateStatus
+    # order = User.find(current_user.id).orders.where(id: params[:orderId]);
+    # p order.update(status: params[:status])
+    st = ActiveRecord::Base.connection.raw_connection.prepare("UPDATE `orders` SET `orders`.`status` = ?, `orders`.`updated_at` = ? WHERE `orders`.`id` = ?")
+    st.execute(params[:status]  , DateTime.now, params[:orderId])
+    st.close
+    redirect_to orders_url
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

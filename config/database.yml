@@ -15,15 +15,14 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   host: 127.0.0.1
   username: root
-  password: 41195
+  password:
   socket: /opt/lampp/var/mysql/mysql.sock
+
 
 development:
   <<: *default
   database: yalla_notlob
   username: root
-  password: 41195
-
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

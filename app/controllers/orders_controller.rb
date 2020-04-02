@@ -1,11 +1,12 @@
 class OrdersController < ApplicationController
+  # include Pagy::Backend
   before_action :set_order, only: [:show, :edit, :update, :destroy]
-
   # GET /orders
   # GET /orders.json
   def index
     if current_user
-      @orders = User.find(current_user.id).orders
+      # @pagy, @orders = pagy(User.find(current_user.id).orders.limit(2))
+      @pagy, @orders = pagy(User.find(current_user.id).orders,items: 2)
     else
       redirect_to new_user_session_path, notice: 'You are not logged in.'
     end
@@ -76,8 +77,11 @@ class OrdersController < ApplicationController
   end
 
   def updateStatus
-    order = User.find(current_user.id).orders.where(id: params[:orderId]);
-    order.update(status: params[:status])
+    # order = User.find(current_user.id).orders.where(id: params[:orderId]);
+    # p order.update(status: params[:status])
+    st = ActiveRecord::Base.connection.raw_connection.prepare("UPDATE `orders` SET `orders`.`status` = ?, `orders`.`updated_at` = ? WHERE `orders`.`id` = ?")
+    st.execute(params[:status]  , Date.today.to_s, params[:orderId])
+    st.close
     redirect_to orders_url
   end
 

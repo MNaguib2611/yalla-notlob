@@ -4,10 +4,9 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
-    @orders = User.find(1).orders.to_a ## orders of the logged in user -- shall be modified
+    @orders = User.find(current_user.id).orders.to_a
     
-    @user_friends = User.find(1).friends
+    @user_friends = User.find(current_user.id).friends
     @friend_ids = []
     @user_friends.each do |friend|
       @friend_ids.push(friend.friend_id)

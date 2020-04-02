@@ -30,9 +30,11 @@ class OrdersController < ApplicationController
     @order.order_type = params[:order_type]
     @order.restaurant = params[:restaurant]
     @order.menu_img = params[:menu_img]
-    @order.status =  "pending"
+    @order.status =  "waiting"
     @order.user_id = current_user.id
-    @order.save()
+    if @order.save()
+      saveInUserInvitedToOrder(params[:invited]);
+    end
     redirect_to action: :new
     # @order = Order.new(order_params)
 
@@ -45,6 +47,35 @@ class OrdersController < ApplicationController
     #     format.json { render json: @order.errors, status: :unprocessable_entity }
     #   end
     # end
+  end
+  
+  def saveInUserInvitedToOrder(invited)
+    @user = User.where(name: invited);
+    if @user.length != 0
+        guest_id = @user.first.id
+        InUserInvitedToOrderData(guest_id)
+    else
+        @users = Group.find_by(name: invited).users;
+        if @users.length != 0
+          @users.each do |user|
+            guest_id = user.id
+            InUserInvitedToOrderData(guest_id)
+          end
+        else
+            p "this is not match friend or group"
+        end
+    end
+    
+  end
+
+  def InUserInvitedToOrderData(guest_id)
+    @lastOrder = Order.where(user_id: current_user.id).order("created_at DESC").first;
+    @userInvitedToOrder = UserInvitedToOrder.new
+    @userInvitedToOrder.order_id = @lastOrder.id;
+    @userInvitedToOrder.host_id = current_user.id;
+    @userInvitedToOrder.guest_id = guest_id;
+    @userInvitedToOrder.status = "pending"
+    @userInvitedToOrder.save();
   end
 
   # PATCH/PUT /orders/1

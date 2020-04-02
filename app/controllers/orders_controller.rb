@@ -80,7 +80,7 @@ class OrdersController < ApplicationController
     # order = User.find(current_user.id).orders.where(id: params[:orderId]);
     # p order.update(status: params[:status])
     st = ActiveRecord::Base.connection.raw_connection.prepare("UPDATE `orders` SET `orders`.`status` = ?, `orders`.`updated_at` = ? WHERE `orders`.`id` = ?")
-    st.execute(params[:status]  , Date.today.to_s, params[:orderId])
+    st.execute(params[:status]  , DateTime.now, params[:orderId])
     st.close
     redirect_to orders_url
   end

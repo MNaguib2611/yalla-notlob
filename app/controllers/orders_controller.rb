@@ -1,11 +1,12 @@
 class OrdersController < ApplicationController
+  # include Pagy::Backend
   before_action :set_order, only: [:show, :edit, :update, :destroy]
-
   # GET /orders
   # GET /orders.json
   def index
     if current_user
-      @orders = User.find(current_user.id).orders
+      # @pagy, @orders = pagy(User.find(current_user.id).orders.limit(2))
+      @pagy, @orders = pagy(User.find(current_user.id).orders,items: 2)
     else
       redirect_to new_user_session_path, notice: 'You are not logged in.'
     end
@@ -34,9 +35,11 @@ class OrdersController < ApplicationController
     @order.order_type = params[:order_type]
     @order.restaurant = params[:restaurant]
     @order.menu_img = params[:menu_img]
-    @order.status =  "pending"
+    @order.status =  "waiting"
     @order.user_id = current_user.id
-    @order.save()
+    if @order.save()
+      saveInUserInvitedToOrder(params[:invited]);
+    end
     redirect_to action: :new
     # @order = Order.new(order_params)
 
@@ -49,6 +52,35 @@ class OrdersController < ApplicationController
     #     format.json { render json: @order.errors, status: :unprocessable_entity }
     #   end
     # end
+  end
+  
+  def saveInUserInvitedToOrder(invited)
+    @user = User.where(name: invited);
+    if @user.length != 0
+        guest_id = @user.first.id
+        InUserInvitedToOrderData(guest_id)
+    else
+        @users = Group.find_by(name: invited).users;
+        if @users.length != 0
+          @users.each do |user|
+            guest_id = user.id
+            InUserInvitedToOrderData(guest_id)
+          end
+        else
+            p "this is not match friend or group"
+        end
+    end
+    
+  end
+
+  def InUserInvitedToOrderData(guest_id)
+    @lastOrder = Order.where(user_id: current_user.id).order("created_at DESC").first;
+    @userInvitedToOrder = UserInvitedToOrder.new
+    @userInvitedToOrder.order_id = @lastOrder.id;
+    @userInvitedToOrder.host_id = current_user.id;
+    @userInvitedToOrder.guest_id = guest_id;
+    @userInvitedToOrder.status = "pending"
+    @userInvitedToOrder.save();
   end
 
   # PATCH/PUT /orders/1
@@ -76,8 +108,11 @@ class OrdersController < ApplicationController
   end
 
   def updateStatus
-    order = User.find(current_user.id).orders.where(id: params[:orderId]);
-    order.update(status: params[:status])
+    # order = User.find(current_user.id).orders.where(id: params[:orderId]);
+    # p order.update(status: params[:status])
+    st = ActiveRecord::Base.connection.raw_connection.prepare("UPDATE `orders` SET `orders`.`status` = ?, `orders`.`updated_at` = ? WHERE `orders`.`id` = ?")
+    st.execute(params[:status]  , DateTime.now, params[:orderId])
+    st.close
     redirect_to orders_url
   end
 

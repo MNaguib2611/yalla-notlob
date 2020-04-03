@@ -12,4 +12,6 @@ class User < ApplicationRecord
 
   has_and_belongs_to_many :groups, class_name:'Group', join_table:'user_groups'
   has_many :user_notifications
+  #has_many :friends
+  #has_many :friends, :source => :friend, :through => :friends
 end

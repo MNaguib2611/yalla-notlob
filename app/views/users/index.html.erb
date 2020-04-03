@@ -1,30 +1,5 @@
 <p id="notice"><%= notice %></p>
 
-<%# <h1>Users</h1> %>
-
-<%# <table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody> %>
-    <%# <% @users.each do |user| %> <%#%%>
-      <%# <tr> %>
-        <%# <td><%= link_to 'Show', user %><%#</td> %>
-        <%# <td><%= link_to 'Edit', edit_user_path(user) %><%#</td> %>
-        <%# <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %><%#</td> %>
-      <%# </tr> %>
-    <%# <% end %> <%#%>
-  <%# </tbody>
-</table> %>
-
-<%# <br> %>
-
-<%# <%= link_to 'New User', new_user_path %> <%#%>
-
-
 <div class="d-flex p-2 mr-3 ml-3 justify-content-center align-items-strech" style="margin-top: 7rem; font-size: 20px;">
         
         <fieldset  class="container p-2" style="border: solid; height: 500px; margin-right: 1rem;">
@@ -32,7 +7,7 @@
 
             <ul style="list-style-type: none;">
                 <% @info[0][:user_orders].each do |order| %>
-                    <li style="font-size: 20px;"> <a href="#"> <%= order.order_type %> on <%= order.created_at %> </a> </li>
+                    <li style="font-size: 20px;"> <a href="#"> <%= order.order_type %> on <%= order.created_at.to_date %> </a> </li>
                 <% end %>
             </ul>
         </fieldset>

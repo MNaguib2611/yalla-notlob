@@ -56,3 +56,4 @@ gem 'bootstrap', '~> 4.4.1'
 gem "font-awesome-rails"
 gem 'devise'
 gem 'jquery-rails'
+gem 'notifications', '~> 0.6.0'

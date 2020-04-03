@@ -1,0 +1,16 @@
+
+<div class="container">
+    <%= link_to notification.actor.name, main_app.user_path(notification.actor) %> has invited you to
+    <%= link_to notification.second_target.order_type, main_app.order_path(notification.second_target) %>
+    <% @invitation_status = UserInvitedToOrder.find(notification.target.id).status %>
+    <% if @invitation_status == 'accepted' %>
+        <p>You <b>Joined</b> the Order</p>
+    <% elsif @invitation_status == 'rejected' %>
+        <p>You <b>Rejected</b> the Invitation to the Order</p>
+    <% else %>
+        <%= link_to 'Accept', main_app.update_invitation_status_path(notification.target, user_action: 'accept'), method: :patch, class: "btn btn-primary" %>
+        <%= link_to 'Reject', main_app.update_invitation_status_path(notification.target, user_action: 'reject'), method: :patch, class: "btn btn-danger" %>
+    <% end %>
+                
+
+</div>

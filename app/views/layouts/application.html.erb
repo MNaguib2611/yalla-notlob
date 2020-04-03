@@ -153,20 +153,21 @@
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="notification"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-bell"></i>
-                                <span class="count bg-danger"><%= current_user.user_notifications.unread_notifications.count %></span>
+                                <%# <span class="count bg-danger"><%= current_user.user_notifications.unread_notifications.count %><%#</span> %>
+                                <span class="count bg-danger"><%= Notification.unread_count(current_user) %></span>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="notification">
-                                <p class="red">You have <%= current_user.user_notifications.unread_notifications.count %> Notification</p>
-                                <% current_user.user_notifications.unread_notifications.each do |notif| %>
-                                    <a class="dropdown-item media" href="#">
-                                        <i class="fa fa-info"></i>
-                                        <p><%= notif.notification %></p>
-                                    </a>                                
-                                <% end %>
-                                <a class="dropdown-item media" href="#">
+                                <p class="red"> You have <%= link_to pluralize(Notification.unread_count(current_user), 'Notification'), main_app.notifications_path %></p>
+                                <%# <% current_user.user_notifications.unread_notifications.each do |notif| %> <%#%>
+                                    <%# <a class="dropdown-item media" href="#"> %>
+                                        <%# <i class="fa fa-info"></i> %>
+                                        <%# <p><%= notif.notification %><%#</p> %>
+                                    <%# </a>                                 %>
+                                <%# <% end %> <%#%%>
+                                <%# <a class="dropdown-item media" href="#">
                                     <i class="fa fa-check"></i>
                                     <p>View All</p>
-                                </a>
+                                </a> %>
                             </div>
                         </div>
 
@@ -207,14 +208,14 @@
 
                         <div class="user-menu dropdown-menu">
                             <%# <a class="nav-link" href="#"><i class="fa fa- user"></i>My Profile</a> %>
-                            <%= link_to 'profile', edit_user_registration_path, :class => 'navbar-link' %>
+                            <%= link_to 'profile', main_app.edit_user_registration_path, :class => 'navbar-link' %>
                             <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span
                                     class="count">13</span></a>
 
                             <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
 
                             <a class="nav-link" href="#"><i class="fa fa-power -off"></i>Logout</a>
-                            <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+                            <%= link_to "Logout", main_app.destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
 
                         </div>
                     </div>

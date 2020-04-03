@@ -1,0 +1,12 @@
+<h1>OrderItems#new</h1>
+
+<% if @orderItem.errors.any? %>
+  <div class="alert alert-danger">
+    <ul>
+      <% @orderItem.errors.full_messages.each do |message|%>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+

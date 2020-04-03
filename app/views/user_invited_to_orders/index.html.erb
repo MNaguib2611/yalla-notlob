@@ -1,0 +1,30 @@
+<h1>User Invited To Orders</h1>
+<div>
+  <div class="table-stats order-table ov-h">
+    <table class="table ">
+      <thead>
+      <tr>
+        <!--        <th class="serial">#</th>-->
+        <th>Person</th>
+       
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+<% @user_invited_to_order.each do |user| %>
+    <tr> 
+    <td><%= label_tag 'person', User.where("id = ?", user.guest_id).first.name %></td>
+    <td>
+    <%= link_to  "Remove" , "/user_invited_to_orders/#{user.id}", method: :delete, class:"btn btn-danger btn-sm" %>
+
+    </td>
+    
+  <% end %>
+  </tr>
+  </tbody>
+  </table>
+  <%= link_to 'Back', order_items_path %>
+
+</div>
+</div>

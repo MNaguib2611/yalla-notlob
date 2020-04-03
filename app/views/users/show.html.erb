@@ -1,4 +1,7 @@
 <p id="notice"><%= notice %></p>
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<h3><%= @user.name %></h3>
+<h4>Email: <%= @user.email %></h4>
+<h5>Number of Orders: <%= @user.orders.count %></h5>
+<h5>Number of Friends: <%= @user.friends_data.count + @user.friends.count %></h5>
+<%# <%= link_to 'Edit', edit_user_path(@user) %> <%#| %>
+<%# <%= link_to 'Back', users_path %> <%#%>

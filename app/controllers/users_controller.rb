@@ -4,25 +4,54 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @orders = User.find(current_user.id).orders.to_a
+    ## User's Orders
+    @orders = User.find(current_user.id).orders.where(status: 'waiting').to_a
     
-    @user_friends = User.find(current_user.id).friends
-    @friend_ids = []
-    @user_friends.each do |friend|
-      @friend_ids.push(friend.friend_id)
+    ## Joined Orders
+    @joined_orders_records = UserInvitedToOrder.all.where(guest_id: current_user.id, status: 'accepted').select('order_id').to_a
+    @joined_orders_ids = [];
+    @friends_host_ids = [];
+    @joined_orders_records.each do |order|
+      @joined_orders_ids.push(order.order_id)
     end
-    @friends_data = User.find(@friend_ids)
+    
+    @joined_orders = Order.where(id: @joined_orders_ids, status: 'waiting').to_a
+    
+    @joined_orders.each do |order|
+      @friends_host_ids.push(order.user_id)
+    end
+
+    @friends_data = User.find(@friends_host_ids)
     @friends_orders = []
-    @friends_data.each do |friend|
-      @friends_orders.push(id: friend.id, name: friend.name, orders: friend.orders.to_a)
+    @i = 0
+    @joined_orders.each do |order|
+      @friends_orders.push(host_id: @friends_data[@i].id, name: @friends_data[@i].name, order: order)
+      @i += 1
     end
+
+    ## Friends Orders
+    # @user_friends = User.find(current_user.id).friends_data
+    # @friend_ids = []
+    # @user_friends.each do |friend|
+    #   @friend_ids.push(friend.friend_id)
+    # end
+    # @friends_data = User.find(@friend_ids)
+    # @friends_orders = []
+    # @friends_data.each do |friend|
+    #   @friends_orders.push(id: friend.id, name: friend.name, orders: friend.orders.to_a)
+    # end
     
-    @info = [user_orders: @orders, friends_orders: @friends_orders]
+    # @info = [user_orders: @orders, friends_data: @friends_data, joined_orders: @joined_orders]
+    @info = [user_orders: @orders, joined_orders: @friends_orders]
   end
 
   # GET /users/1
   # GET /users/1.json
   def show
+    p "-----------------------"
+    p params[:id]
+    p "-----------------------"
+    @user = User.find(params[:id]);
   end
 
   # GET /users/new

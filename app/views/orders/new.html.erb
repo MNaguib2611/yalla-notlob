@@ -7,20 +7,21 @@
             <div class="form-group">
                <select class="custom-select" name="order_type" required>
                   <option value="">Order For</option>
-                  <option value="breackfast">Breackfast</option>
-                  <option value="launch">Launch</option>
+                  <option value="breakfast">Breakfast</option>
+                  <option value="lunch">Lunch</option>
                   <option value="dinner">Dinner</option>
                </select>
             </div>
             
             <div class="form-group">
-               <input type="text" name="restaurant" class="form-control" id="restaurant" placeholder="write the restaurant name" required>
+               <input type="text" name="restaurant" class="form-control" id="restaurant" 
+                  placeholder="write the restaurant name" required>
             </div>
             
             <div class="form-group invitedDiv">
-               <input type="text" name="invited" class="form-control" id="invited" 
-               placeholder="you can write a friend name or group" required>
-               <input type="button" class="btn btn-success" value="+" id="inviteButton" name="inviteButton">
+                  <input type="text" name="invited" class="form-control" id="invited" 
+                     placeholder="you can write a friend name or group" required>
+                  <input type="button" value="Invite" class="btn btn-success" id="inviteButton" name="inviteButton" />
             </div>
    
             <div class="custom-file">
@@ -29,7 +30,7 @@
             </div>
             <br /><br />
             <div class="form-group">
-               <button class="btn btn-primary btn-block" type="submit">Publish</button>
+               <button class="btn btn-primary btn-block" type="submit" id="publishbtn">Publish</button>
             </div>
          <% end %>
       </div>
@@ -38,13 +39,13 @@
       </div>
       
       <div class="col-md-5">
-         <fieldset>
+         <fieldset id="invitedList">
             <legend>Friends Invited</legend>
-            <div class="card mb-3" style="max-width: 540px;">
+            <%# <div class="card mb-3" style="max-width: 540px;">
                <div class="row no-gutters">
                   <div class="col-md-2">
                      <%= image_tag ("/assets/user.png"), :class=>"friendImage"%>
-                  </div>
+                  <%#</div>
                   <div class="col-md-8">
                      <div class="card-body">
                         <h5 class="card-title">Card title</h5>
@@ -52,23 +53,12 @@
                      </div>
                   </div>
                </div>
-            </div>
-            <div class="card mb-3" style="max-width: 540px;">
-               <div class="row no-gutters">
-                  <div class="col-md-2">
-                     <%= image_tag ("/assets/user.png"), :class=>"friendImage"%>
-                  </div>
-                  <div class="col-md-8">
-                     <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <a href="#" class="btn btn-danger">Remove</a>
-                     </div>
-                  </div>
-               </div>
-            </div>
+            </div>%>
          </fieldset>
       </div>
       
    </div>
    
 </div>
+
+<%= javascript_include_tag('new.js') %>

@@ -9,7 +9,8 @@ Rails.application.routes.draw do
   put 'orders/:orderId/status', to: 'orders#updateStatus', as: 'update_state'
   delete 'groups/:group_id/delete/:user_id', to: 'groups#removeFriendFromGroup', as: 'delete_friend_from_group'
   root 'users#index'
- get 'friends/index', to: 'friends#index' ,:as => :friends
+  get 'friends/index', to: 'friends#index' ,:as => :friends
+  post 'orders/checkInvitedExistance', to: 'orders#checkInvitedExistance', :as => 'checkInvitedExistance'
 
   post 'friends/create', to: 'friends#create' 
   delete 'friends/destroy', to: 'friends#destroy' 

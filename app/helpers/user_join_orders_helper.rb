@@ -1,0 +1,2 @@
+module UserJoinOrdersHelper
+end

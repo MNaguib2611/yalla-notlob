@@ -1,4 +1,4 @@
-<h1>User Joined Orders</h1>
+<h1>User Invited To Orders</h1>
 <div>
   <div class="table-stats order-table ov-h">
     <table class="table ">
@@ -12,16 +12,19 @@
       </thead>
       <tbody>
       <tr>
-<% @user_joined_order.each do |user| %>
+<% @user_invited_to_order.each do |user| %>
     <tr> 
-    <td><%= label_tag 'person', User.where("id = ?", user.user_id).first.name %></td>
+    <td><%= label_tag 'person', User.where("id = ?", user.guest_id).first.name %></td>
     <td>
-      <%= link_to 'Remove', user_join_orders, method: :delete, class:"btn btn-danger btn-sm" %> 
+    <%= link_to  "Remove" , "/user_invited_to_orders/#{user.id}", method: :delete, class:"btn btn-danger btn-sm" %>
+
     </td>
     
   <% end %>
   </tr>
   </tbody>
   </table>
+  <%= link_to 'Back', order_items_path %>
+
 </div>
 </div>

@@ -7,6 +7,7 @@ class UserInvitationsController < ApplicationController
         if params[:user_action] == 'accept'
             @invitation.status = 'accepted'
             @notice = 'You Accepted the Invitation'
+            UserJoinOrder.create order_id: @invitation.order_id, user_id: @invitation.guest_id
         else
             @invitation.status = 'rejected'
             @notice = 'You Rejected the Invitation'

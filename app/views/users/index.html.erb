@@ -7,7 +7,9 @@
             <%# <h3> Your Orders </h3> %>
             <ul style="list-style-type: none;">
                 <% @info[0][:user_orders].each do |order| %>
-                    <li style="font-size: 20px;"> <a href="#"> <%= order.order_type %> on <%= order.created_at.to_date %> </a> </li><br>
+                    <li style="font-size: 20px;"> 
+                    <%= link_to "#{order.order_type} on #{order.created_at.to_date}" , {:controller => "order_items", :action => "index", :order_id => order.id}%>
+                    </li><br>
                 <% end %>
             </ul>
             <%# <h3> The Orders You Joined </h3> %>
@@ -22,7 +24,12 @@
             <legend style="width: auto;"> Friends Activity </legend>
             <ul style="list-style-type: none;">
                 <% @info[0][:joined_orders].each do |joined_order|%>
-                    <li style="font-size: 20px; margin-bottom: 1rem;"> <a href="<%= user_path(joined_order[:host_id]) %>"> <%= joined_order[:name] %></a> has created <a href="#">an order</a> for <a href="#"> <%= joined_order[:order][:order_type] %></a> from <%= joined_order[:order][:restaurant] %>. </li>
+                    <li style="font-size: 20px; margin-bottom: 1rem;"> <a href="<%= user_path(joined_order[:host_id]) %>"> <%= joined_order[:name] %></a> has created 
+                    
+                    <%= link_to "an order", {:controller => "order_items", :action => "index", :order_id => joined_order[:order][:id]}%>
+                    for
+                    <%= link_to joined_order[:order][:order_type], {:controller => "order_items", :action => "index", :order_id => joined_order[:order][:id]} %>
+                    from <%= joined_order[:order][:restaurant] %>. </li>
                 <% end %>
             </ul>
             <%# <ul style="list-style-type: none;"> %>

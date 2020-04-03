@@ -4,7 +4,7 @@ class OrderItemsController < ApplicationController
   # @orders = User.find(current_user.id).orders
   # @orders = User.find(2).orders
     # p @orders.ids#arrray but should n't be like that order id comoe from orders page
-    @orders = Order.find(2)
+    @orders = Order.find(params[:order_id])
     @orderItems = OrderItem.where(order_id:@orders.id)
     p @orderItems
   #   @users_joined_order = UserJoinOrder.where(order_id:@orders.id)
@@ -40,7 +40,7 @@ class OrderItemsController < ApplicationController
     if  @orderItem.save()
     p @orderItem.id
     end
-    redirect_to :order_items
+    redirect_to controller: 'order_items', action: 'index', order_id: params[:order_id]
 
   end
 
@@ -48,8 +48,12 @@ class OrderItemsController < ApplicationController
     p "params values: #{params}"
 
     @orderItem = OrderItem.find(params[:id])
+    @order_id = @orderItem.order_id
     @orderItem.destroy
-    redirect_to :order_items
+    p "***********************************"
+    p "params values: #{params}"
+    p "***********************************"
+    redirect_to controller: 'order_items', action: 'index', order_id: @order_id
 
     # respond_to do |format|
     #   format.html { redirect_to orders_url, notice: 'Order was successfully destroyed.' }
@@ -63,7 +67,7 @@ class OrderItemsController < ApplicationController
   end
 
   def show
-    @orders = Order.find(2)
+    @orders = Order.find(params[:order_id])
     @users_joined_order = UserJoinOrder.where(order_id:@orders.id)
     @users_joined=@users_joined_order.ids 
     @users_joined.each do |user|

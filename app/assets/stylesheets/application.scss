@@ -30,13 +30,19 @@
    border: solid 2px #ccc;
 }
 #order-new legend {
-   width: 40%;
+   width: 160px;
    margin-left: 5%;
 }
 
 #order-new .friendImage{
-   width: 90%;
-   height: 97%;
+   width: 90px;
+   height: 90px;
+   margin-left: 8px;
+   margin-top: 10px;
+}
+
+#inviteButton, #invited{
+   display: inline-block;
 }
 
 // #order-new .invitedDiv {

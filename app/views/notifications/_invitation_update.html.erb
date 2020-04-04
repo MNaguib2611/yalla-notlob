@@ -1,0 +1,12 @@
+
+<div class="container">
+    <%= link_to notification.actor.name, main_app.user_path(notification.actor) %> has 
+    <% if notification.target.status == 'accepted' %>
+        <%= 'Accepted' %>
+    <% else %>
+        <%= 'Rejected' %>
+    <% end %>
+        your invitation to
+    <%= link_to notification.second_target.order_type, main_app.order_path(notification.second_target) %>
+
+</div>

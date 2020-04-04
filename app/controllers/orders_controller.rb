@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
   # include Pagy::Backend
   before_action :set_order, only: [:show, :edit, :update, :destroy]
+  respond_to :json, :html, :js
   # GET /orders
   # GET /orders.json
   def index
@@ -29,27 +30,65 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
-    p "params values: #{params}"
     p " user id : #{current_user.id}"
     @order = Order.new
     @order.order_type = params[:order_type]
     @order.restaurant = params[:restaurant]
     @order.menu_img = params[:menu_img]
-    @order.status =  "pending"
+    @order.status =  "waiting"
     @order.user_id = current_user.id
-    @order.save()
+    if @order.save()
+      invitedFriends = params[:invited].split(',');
+      saveInUserInvitedToOrder(invitedFriends);
+    end
     redirect_to action: :new
-    # @order = Order.new(order_params)
+  end
+  
+  def checkInvitedExistance
+    @users = User.where(name: params[:keyword]);
+      if @users.length != 0
+        status = "true"
+        respond_with(@users, :include => :status)
+      else
+        @users = Group.where(name: params[:keyword])
+          if @users.length != 0
+            result = true
+            respond_with(@users, :include => :status)
+          else
+            respond_with(new, :include => :status)
+          end
+      end
+  end
+  
+  def saveInUserInvitedToOrder(invitedFriends)
+    invitedFriends.each do |invited|
+      @user = User.where(name: invited);
+      if @user.length != 0
+          guest_id = @user.first.id
+          InUserInvitedToOrderData(guest_id)
+      else
+          @users = Group.find_by(name: invited).users;
+          if @users.length != 0
+            @users.each do |user|
+              guest_id = user.id
+              InUserInvitedToOrderData(guest_id)
+            end
+          else
+              p "this is not match friend or group"
+          end
+      end
+    end
+    
+  end
 
-    # respond_to do |format|
-    #   if @order.save
-    #     format.html { redirect_to @order, notice: 'Order was successfully created.' }
-    #     format.json { render :show, status: :created, location: @order }
-    #   else
-    #     format.html { render :new }
-    #     format.json { render json: @order.errors, status: :unprocessable_entity }
-    #   end
-    # end
+  def InUserInvitedToOrderData(guest_id)
+    @lastOrder = Order.where(user_id: current_user.id).order("created_at DESC").first;
+    @userInvitedToOrder = UserInvitedToOrder.new
+    @userInvitedToOrder.order_id = @lastOrder.id;
+    @userInvitedToOrder.host_id = current_user.id;
+    @userInvitedToOrder.guest_id = guest_id;
+    @userInvitedToOrder.status = "pending"
+    @userInvitedToOrder.save();
   end
 
   # PATCH/PUT /orders/1

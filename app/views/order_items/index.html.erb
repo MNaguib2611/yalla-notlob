@@ -1,0 +1,86 @@
+<h1>Order Items</h1>
+
+<div>
+  <div class="table-stats order-table ov-h">
+    <table class="table ">
+      <thead>
+      <tr>
+        <!--        <th class="serial">#</th>-->
+        <th>Person</th>
+        <th>Item</th>
+        <th>amount</th>
+        <th>price</th>
+        <th>comment</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <!--   
+             <td class="serial">1.</td>-->
+              
+              
+        <% @orderItems.each do |orderItem| %>
+         
+          <td>   <%= label_tag 'person', User.where("id = ?", orderItem.user_id).first.name %>
+          </td>
+          <td><%= orderItem.item %></td>
+          <td> <%= orderItem.amount %></td>
+          <td> <%= orderItem.price %></td>
+          <td> <%= orderItem.comment %></td>
+          <td>
+            <%= link_to 'Cancel',  orderItem, method: :delete, class:"btn btn-danger btn-sm" %>
+          </td>
+          
+          </tr>
+        <% end %>
+        <tr>
+        <td>
+        <%= link_to "#{@orders.joined_num} Joined Friends Click to view", "/user_join_orders" %>
+
+        </td>
+        <td>
+       
+        <%= link_to  "#{@orders.invited_num} Invited Friends Click to view", "/user_invited_to_orders" %>
+        </td>
+        </tr>
+
+        </tbody>
+    </table>
+    
+    <%= form_tag( order_items_path , method: "post") do %>
+      <div class="form-row">
+      <div class="field-row">
+      <%= hidden_field_tag 'order_id', @orders.id  %>
+      </div>
+    
+      <div class="col">
+      <%= text_field_tag(:person,nil,placeholder:"Person name..",class:"form-control") %>
+      </div>
+     
+      <div class="col">
+      <%= text_field_tag(:item,nil,placeholder:"Item..",class:"form-control") %>
+      </div>
+      <div class="col">
+      <%= number_field_tag(:amount,nil,placeholder:"Amount..",min: 0, max: 1000,step: 1,class:"form-control") %>
+      </div>
+      <div class="col">
+  
+      <%= number_field_tag(:price,nil,placeholder:"Price..",min: 2, max: 1000,step: 0.5,class:"form-control") %>
+      </div>
+      <div class="col">
+  
+      <%= text_field_tag(:comment,nil,placeholder:"Comment..",class:"form-control",rows: 5) %>
+      </div>
+      </div>
+
+      <div class="form-group">
+
+      <%= submit_tag"Add Item",class: "btn btn-primary " %>
+      </div>
+
+      <% end %>
+  </div> <!-- /.table-stats -->
+</div>
+
+

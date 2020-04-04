@@ -5,8 +5,8 @@ class OrdersController < ApplicationController
   # GET /orders.json
   def index
     if current_user
-      # @pagy, @orders = pagy(User.find(current_user.id).orders.limit(2))
-      @pagy, @orders = pagy(User.find(current_user.id).orders,items: 2)
+
+      @pagy, @orders = pagy_array(User.find(current_user.id).orders.to_a + Order.find_by_sql("SELECT order_type,restaurant,joined_num ,invited_num,status, orders.user_id, orders.id from orders, user_join_orders WHERE orders.id = user_join_orders.order_id AND user_join_orders.user_id = #{current_user.id}"),items: 2)
     else
       redirect_to new_user_session_path, notice: 'You are not logged in.'
     end

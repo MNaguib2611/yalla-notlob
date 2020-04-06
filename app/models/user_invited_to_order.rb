@@ -1,4 +1,5 @@
 class UserInvitedToOrder < ApplicationRecord
+    validates :host_id, :guest_id, :order_id, :status, presence: true
     self.table_name = "user_invited_to_orders"
     belongs_to :order
     belongs_to :host, :class_name => "User"
@@ -27,7 +28,4 @@ class UserInvitedToOrder < ApplicationRecord
             notification.second_target = self.order
         end
     end
-
-
-   # validates :host_id, :guest_id, :order_id, :status, presence: true
 end

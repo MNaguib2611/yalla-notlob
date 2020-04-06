@@ -5,6 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :orders
+
+
   has_many :friends_data, foreign_key: :user_id, class_name: 'Friend'
   # has_many :groups , foreign_key: :user_id , class_name: 'Group'
   has_many :friends, foreign_key: :friend_id, class_name: 'Friend'
@@ -14,4 +16,8 @@ class User < ApplicationRecord
   has_many :user_notifications
   #has_many :friends
   #has_many :friends, :source => :friend, :through => :friends
+
+
+
+  
 end

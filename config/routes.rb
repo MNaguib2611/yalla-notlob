@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   get 'friends/show', to: 'friends#show'
 
   resources :user_join_orders
-resources :user_invited_to_orders
+  resources :user_invited_to_orders
   resources :order_items
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

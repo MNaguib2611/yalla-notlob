@@ -15,6 +15,10 @@
               <%= f.password_field :password_confirmation, autocomplete: "new-password",placeholder: "Password Confirm"  %>
 
               <%= f.submit "Sign up" %>
+
+                <br /><br /><br />
+                 <%= render "devise/shared/links"  %>
+
         </div> 
         
         <div class="right">
@@ -22,12 +26,6 @@
           
           <button type="button"  class="social-signin facebook">Log in with facebook</button>
           <button type="button" class="social-signin google">Log in with Google</button>
-          <br /><br />
-        
-             <h3>
-                 <%= render "devise/shared/links" %>
-             </h3>
-
         </div>
         <div class="or">OR</div>
     </div>

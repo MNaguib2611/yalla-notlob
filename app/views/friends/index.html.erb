@@ -14,32 +14,47 @@
                   <div class="tab-pane fade in active show" id="profile-friends">
                   <%= form_with(url: "/friends/create", method: "post") do %>                   
                         <div class="form_control">
-                        <%= text_field_tag(:email,nil,placeholder:"Email..",class:"form-control") %>
+                        <%= text_field_tag(:email,nil,placeholder:"Email..",list:"users",class:"form-control") %>
+                            <datalist id="users">
+                               <% @users.each do |user| %>
+                                 <option value="<%= user.email %>">
+                                <% end %>   
+                            </datalist>
                         </div>
                         <%= submit_tag"Add",class: "btn btn-success btn-block" %>
                       <% end %>
 
                      <!-- begin row -->
-                     <div class="row row-space-2">
+                     <div class="row row-space- mt-5">
                     
                    
                   
                                       
                         <!-- begin col-6 -->
-                        <% @friends.each do |friend| %>
+                        <% @friendsAll.each do |friend| %>
 
-                        <div class="col-md-6 m-b-2">
+                        <div class="col-md-6 mb-3">
                            <div class="p-10 bg-white">
                               <div class="media media-xs overflow-visible">
                                  <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="" style="width:100px;height:100px;"class="media-object img-circle">
-                                 <div class="media-body valign-middle">
-                                    <b class="text-inverse"><%= @user.email %></b>
-                                    </div>
-                                 <%= link_to 'unFriend', friends_destroy_url, method: :delete, data: { confirm: 'Are you sure?' } %>
+                                 <div class="media-body valign-middle pl-5 pt-4">
+                                    <b class="text-inverse"><%= friend.name %></b>
+                                </div>
+                                    <form accept-charset="UTF-8" action="<%= friends_destroy_path %>" method="post">
+                                        <input name="_method" type="hidden" value="delete" />
+                                        <input name="utf8" type="hidden" value="&#x2713;" />
+                                        <input name="authenticity_token" type="hidden" value="f755bb0ed134b76c432144748a6d4b7a7ddf2b71" />
+                                        <input name="friend_id" type="hidden" value="<%=friend.id %>" />
+                                        <button class="btn btn-sm btn-danger">unfriend</button>
+                                    </form>
+
+
+                                 <%# <%= link_to 'unFriend', friends_destroy_url, method: :delete,class:"btn btn-danger mt-4", data: { confirm: 'Are you sure?' } %> 
                                  </div>
                            </div>
                         </div>
                         <% end %>
+                      
                         <!-- end col-6 -->
 
                      </div>
@@ -57,229 +72,229 @@
 
 <style type="text/css">
     	
-body{
-    background:#eee;
-}
+    body{
+        background:#eee;
+    }
 
-.profile-content {
-    padding: 25px;
-    border-radius: 4px
-}
+    .profile-content {
+        padding: 25px;
+        border-radius: 4px
+    }
 
-.profile-content:after,
-.profile-content:before {
-    content: '';
-    display: table;
-    clear: both
-}
+    .profile-content:after,
+    .profile-content:before {
+        content: '';
+        display: table;
+        clear: both
+    }
 
-.profile-content .tab-content,
-.profile-content .tab-pane {
-    background: 0 0
-}
+    .profile-content .tab-content,
+    .profile-content .tab-pane {
+        background: 0 0
+    }
 
-.profile-left {
-    width: 200px;
-    float: left
-}
+    .profile-left {
+        width: 200px;
+        float: left
+    }
 
-.profile-right {
-    margin-left: 240px;
-    padding-right: 20px
-}
+    .profile-right {
+        margin-left: 240px;
+        padding-right: 20px
+    }
 
-.profile-image {
-    height: 175px;
-    line-height: 175px;
-    text-align: center;
-    font-size: 72px;
-    margin-bottom: 10px;
-    border: 2px solid #E2E7EB;
-    overflow: hidden;
-    border-radius: 4px
-}
+    .profile-image {
+        height: 175px;
+        line-height: 175px;
+        text-align: center;
+        font-size: 72px;
+        margin-bottom: 10px;
+        border: 2px solid #E2E7EB;
+        overflow: hidden;
+        border-radius: 4px
+    }
 
-.profile-image img {
-    display: block;
-    max-width: 100%
-}
+    .profile-image img {
+        display: block;
+        max-width: 100%
+    }
 
-.profile-highlight {
-    padding: 12px 15px;
-    background: #FEFDE1;
-    border-radius: 4px
-}
+    .profile-highlight {
+        padding: 12px 15px;
+        background: #FEFDE1;
+        border-radius: 4px
+    }
 
-.profile-highlight h4 {
-    margin: 0 0 7px;
-    font-size: 12px;
-    font-weight: 700
-}
+    .profile-highlight h4 {
+        margin: 0 0 7px;
+        font-size: 12px;
+        font-weight: 700
+    }
 
-.table.table-profile>thead>tr>th {
-    border-bottom: none!important
-}
+    .table.table-profile>thead>tr>th {
+        border-bottom: none!important
+    }
 
-.table.table-profile>thead>tr>th h4 {
-    font-size: 20px;
-    margin-top: 0
-}
+    .table.table-profile>thead>tr>th h4 {
+        font-size: 20px;
+        margin-top: 0
+    }
 
-.table.table-profile>thead>tr>th h4 small {
-    display: block;
-    font-size: 12px;
-    font-weight: 400;
-    margin-top: 5px
-}
+    .table.table-profile>thead>tr>th h4 small {
+        display: block;
+        font-size: 12px;
+        font-weight: 400;
+        margin-top: 5px
+    }
 
-.table.table-profile>tbody>tr>td,
-.table.table-profile>thead>tr>th {
-    border: none;
-    padding-top: 7px;
-    padding-bottom: 7px;
-    color: #242a30;
-    background: 0 0
-}
+    .table.table-profile>tbody>tr>td,
+    .table.table-profile>thead>tr>th {
+        border: none;
+        padding-top: 7px;
+        padding-bottom: 7px;
+        color: #242a30;
+        background: 0 0
+    }
 
-.table.table-profile>tbody>tr>td.field {
-    width: 20%;
-    text-align: right;
-    font-weight: 600;
-    color: #2d353c
-}
+    .table.table-profile>tbody>tr>td.field {
+        width: 20%;
+        text-align: right;
+        font-weight: 600;
+        color: #2d353c
+    }
 
-.table.table-profile>tbody>tr.highlight>td {
-    border-top: 1px solid #b9c3ca;
-    border-bottom: 1px solid #b9c3ca
-}
+    .table.table-profile>tbody>tr.highlight>td {
+        border-top: 1px solid #b9c3ca;
+        border-bottom: 1px solid #b9c3ca
+    }
 
-.table.table-profile>tbody>tr.divider>td {
-    padding: 0!important;
-    height: 10px
-}
+    .table.table-profile>tbody>tr.divider>td {
+        padding: 0!important;
+        height: 10px
+    }
 
-.profile-section+.profile-section {
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 1px solid #b9c3ca
-}
+    .profile-section+.profile-section {
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid #b9c3ca
+    }
 
-.profile-section:after,
-.profile-section:before {
-    content: '';
-    display: table;
-    clear: both
-}
+    .profile-section:after,
+    .profile-section:before {
+        content: '';
+        display: table;
+        clear: both
+    }
 
-.profile-section .title {
-    font-size: 20px;
-    margin: 0 0 15px
-}
+    .profile-section .title {
+        font-size: 20px;
+        margin: 0 0 15px
+    }
 
-.profile-section .title small {
-    font-weight: 400
-}
+    .profile-section .title small {
+        font-weight: 400
+    }
 
-body.flat-black {
-    background: #E7E7E7
-}
+    body.flat-black {
+        background: #E7E7E7
+    }
 
-.flat-black .navbar.navbar-inverse {
-    background: #212121
-}
+    .flat-black .navbar.navbar-inverse {
+        background: #212121
+    }
 
-.flat-black .navbar.navbar-inverse .navbar-form .form-control {
-    background: #4a4a4a;
-    border-color: #4a4a4a
-}
+    .flat-black .navbar.navbar-inverse .navbar-form .form-control {
+        background: #4a4a4a;
+        border-color: #4a4a4a
+    }
 
-.flat-black .sidebar,
-.flat-black .sidebar-bg {
-    background: #3A3A3A
-}
+    .flat-black .sidebar,
+    .flat-black .sidebar-bg {
+        background: #3A3A3A
+    }
 
-.flat-black .page-with-light-sidebar .sidebar,
-.flat-black .page-with-light-sidebar .sidebar-bg {
-    background: #fff
-}
+    .flat-black .page-with-light-sidebar .sidebar,
+    .flat-black .page-with-light-sidebar .sidebar-bg {
+        background: #fff
+    }
 
-.flat-black .sidebar .nav>li>a {
-    color: #b2b2b2
-}
+    .flat-black .sidebar .nav>li>a {
+        color: #b2b2b2
+    }
 
-.flat-black .sidebar.sidebar-grid .nav>li>a {
-    border-bottom: 1px solid #474747;
-    border-top: 1px solid #474747
-}
+    .flat-black .sidebar.sidebar-grid .nav>li>a {
+        border-bottom: 1px solid #474747;
+        border-top: 1px solid #474747
+    }
 
-.flat-black .sidebar .active .sub-menu>li.active>a,
-.flat-black .sidebar .nav>li.active>a,
-.flat-black .sidebar .nav>li>a:focus,
-.flat-black .sidebar .nav>li>a:hover,
-.flat-black .sidebar .sub-menu>li>a:focus,
-.flat-black .sidebar .sub-menu>li>a:hover,
-.sidebar .nav>li.nav-profile>a {
-    color: #fff
-}
+    .flat-black .sidebar .active .sub-menu>li.active>a,
+    .flat-black .sidebar .nav>li.active>a,
+    .flat-black .sidebar .nav>li>a:focus,
+    .flat-black .sidebar .nav>li>a:hover,
+    .flat-black .sidebar .sub-menu>li>a:focus,
+    .flat-black .sidebar .sub-menu>li>a:hover,
+    .sidebar .nav>li.nav-profile>a {
+        color: #fff
+    }
 
-.flat-black .sidebar .sub-menu>li>a,
-.flat-black .sidebar .sub-menu>li>a:before {
-    color: #999
-}
+    .flat-black .sidebar .sub-menu>li>a,
+    .flat-black .sidebar .sub-menu>li>a:before {
+        color: #999
+    }
 
-.flat-black .page-with-light-sidebar .sidebar .active .sub-menu>li.active>a,
-.flat-black .page-with-light-sidebar .sidebar .active .sub-menu>li.active>a:focus,
-.flat-black .page-with-light-sidebar .sidebar .active .sub-menu>li.active>a:hover,
-.flat-black .page-with-light-sidebar .sidebar .nav>li.active>a,
-.flat-black .page-with-light-sidebar .sidebar .nav>li.active>a:focus,
-.flat-black .page-with-light-sidebar .sidebar .nav>li.active>a:hover {
-    color: #000
-}
+    .flat-black .page-with-light-sidebar .sidebar .active .sub-menu>li.active>a,
+    .flat-black .page-with-light-sidebar .sidebar .active .sub-menu>li.active>a:focus,
+    .flat-black .page-with-light-sidebar .sidebar .active .sub-menu>li.active>a:hover,
+    .flat-black .page-with-light-sidebar .sidebar .nav>li.active>a,
+    .flat-black .page-with-light-sidebar .sidebar .nav>li.active>a:focus,
+    .flat-black .page-with-light-sidebar .sidebar .nav>li.active>a:hover {
+        color: #000
+    }
 
-.flat-black .page-sidebar-minified .sidebar .nav>li.has-sub:focus>a,
-.flat-black .page-sidebar-minified .sidebar .nav>li.has-sub:hover>a {
-    background: #323232
-}
+    .flat-black .page-sidebar-minified .sidebar .nav>li.has-sub:focus>a,
+    .flat-black .page-sidebar-minified .sidebar .nav>li.has-sub:hover>a {
+        background: #323232
+    }
 
-.flat-black .page-sidebar-minified .sidebar .nav li.has-sub>.sub-menu,
-.flat-black .sidebar .nav>li.active>a,
-.flat-black .sidebar .nav>li.active>a:focus,
-.flat-black .sidebar .nav>li.active>a:hover,
-.flat-black .sidebar .nav>li.nav-profile,
-.flat-black .sidebar .sub-menu>li.has-sub>a:before,
-.flat-black .sidebar .sub-menu>li:before,
-.flat-black .sidebar .sub-menu>li>a:after {
-    background: #2A2A2A
-}
+    .flat-black .page-sidebar-minified .sidebar .nav li.has-sub>.sub-menu,
+    .flat-black .sidebar .nav>li.active>a,
+    .flat-black .sidebar .nav>li.active>a:focus,
+    .flat-black .sidebar .nav>li.active>a:hover,
+    .flat-black .sidebar .nav>li.nav-profile,
+    .flat-black .sidebar .sub-menu>li.has-sub>a:before,
+    .flat-black .sidebar .sub-menu>li:before,
+    .flat-black .sidebar .sub-menu>li>a:after {
+        background: #2A2A2A
+    }
 
-.flat-black .page-sidebar-minified .sidebar .sub-menu>li:before,
-.flat-black .page-sidebar-minified .sidebar .sub-menu>li>a:after {
-    background: #3e3e3e
-}
+    .flat-black .page-sidebar-minified .sidebar .sub-menu>li:before,
+    .flat-black .page-sidebar-minified .sidebar .sub-menu>li>a:after {
+        background: #3e3e3e
+    }
 
-.flat-black .sidebar .nav>li.nav-profile .cover.with-shadow:before {
-    background: rgba(42, 42, 42, .75)
-}
+    .flat-black .sidebar .nav>li.nav-profile .cover.with-shadow:before {
+        background: rgba(42, 42, 42, .75)
+    }
 
-.bg-white {
-    background-color: #fff!important;
-}
-.p-10 {
-    padding: 10px!important;
-}
-.media.media-xs .media-object {
-    width: 32px;
-}
-.m-b-2 {
-    margin-bottom: 2px!important;
-}
-.media>.media-left, .media>.pull-left {
-    padding-right: 15px;
-}
-.media-body, .media-left, .media-right {
-    display: table-cell;
-    vertical-align: top;
-}
-    </style>
+    .bg-white {
+        background-color: #fff!important;
+    }
+    .p-10 {
+        padding: 10px!important;
+    }
+    .media.media-xs .media-object {
+        width: 32px;
+    }
+    .m-b-2 {
+        margin-bottom: 2px!important;
+    }
+    .media>.media-left, .media>.pull-left {
+        padding-right: 15px;
+    }
+    .media-body, .media-left, .media-right {
+        display: table-cell;
+        vertical-align: top;
+    }
+</style>
     
-    <%= link_to 'New User Friend', new_user_friend_path %>
+    <%# <%= link_to 'New User Friend', new_user_friend_path %>

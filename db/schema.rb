@@ -12,14 +12,22 @@
 
 ActiveRecord::Schema.define(version: 2020_04_03_101708) do
 
+<<<<<<< HEAD
   create_table "friends", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+=======
+  create_table "friends", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+>>>>>>> e823c1df5742324ceae1bfedc9fa3f08aa75173f
     t.bigint "user_id"
     t.bigint "friend_id"
     t.index ["friend_id"], name: "index_friends_on_friend_id"
     t.index ["user_id"], name: "index_friends_on_user_id"
   end
 
+<<<<<<< HEAD
   create_table "groups", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+=======
+  create_table "groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+>>>>>>> e823c1df5742324ceae1bfedc9fa3f08aa75173f
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -27,7 +35,11 @@ ActiveRecord::Schema.define(version: 2020_04_03_101708) do
     t.index ["user_id"], name: "index_groups_on_user_id"
   end
 
+<<<<<<< HEAD
   create_table "notifications", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+=======
+  create_table "notifications", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+>>>>>>> e823c1df5742324ceae1bfedc9fa3f08aa75173f
     t.integer "user_id", null: false
     t.integer "actor_id"
     t.column "notify_type", "enum('invitation','invitation_update')"
@@ -44,7 +56,11 @@ ActiveRecord::Schema.define(version: 2020_04_03_101708) do
     t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
+<<<<<<< HEAD
   create_table "order_items", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+=======
+  create_table "order_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+>>>>>>> e823c1df5742324ceae1bfedc9fa3f08aa75173f
     t.string "item", null: false
     t.integer "amount"
     t.float "price"
@@ -55,7 +71,11 @@ ActiveRecord::Schema.define(version: 2020_04_03_101708) do
     t.index ["user_id"], name: "index_order_items_on_user_id"
   end
 
+<<<<<<< HEAD
   create_table "orders", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+=======
+  create_table "orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+>>>>>>> e823c1df5742324ceae1bfedc9fa3f08aa75173f
     t.column "order_type", "enum('breakfast','dinner','lunch')"
     t.string "restaurant"
     t.string "menu_img"
@@ -69,19 +89,31 @@ ActiveRecord::Schema.define(version: 2020_04_03_101708) do
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
+<<<<<<< HEAD
   create_table "tests", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+=======
+  create_table "tests", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+>>>>>>> e823c1df5742324ceae1bfedc9fa3f08aa75173f
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
+<<<<<<< HEAD
   create_table "user_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+=======
+  create_table "user_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+>>>>>>> e823c1df5742324ceae1bfedc9fa3f08aa75173f
     t.bigint "group_id"
     t.bigint "user_id"
     t.index ["group_id"], name: "index_user_groups_on_group_id"
     t.index ["user_id"], name: "index_user_groups_on_user_id"
   end
 
+<<<<<<< HEAD
   create_table "user_invited_to_orders", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+=======
+  create_table "user_invited_to_orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+>>>>>>> e823c1df5742324ceae1bfedc9fa3f08aa75173f
     t.bigint "host_id"
     t.bigint "guest_id"
     t.bigint "order_id"
@@ -93,7 +125,11 @@ ActiveRecord::Schema.define(version: 2020_04_03_101708) do
     t.index ["order_id"], name: "index_user_invited_to_orders_on_order_id"
   end
 
+<<<<<<< HEAD
   create_table "user_join_orders", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+=======
+  create_table "user_join_orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+>>>>>>> e823c1df5742324ceae1bfedc9fa3f08aa75173f
     t.bigint "order_id"
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
@@ -102,7 +138,11 @@ ActiveRecord::Schema.define(version: 2020_04_03_101708) do
     t.index ["user_id"], name: "index_user_join_orders_on_user_id"
   end
 
+<<<<<<< HEAD
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+=======
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+>>>>>>> e823c1df5742324ceae1bfedc9fa3f08aa75173f
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "email", default: "", null: false

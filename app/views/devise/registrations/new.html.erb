@@ -1,8 +1,8 @@
    <div id="login-box">
         <div class="left">
           <h1>Sign up</h1>
-        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
             <%= render "devise/shared/error_messages", resource: resource %>
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
               <%= f.text_field :name, autofocus: true, autocomplete: "name",placeholder: "Name" %>
               <%= f.email_field :email, autofocus: true, autocomplete: "email",placeholder: "Email" %>
 
@@ -15,6 +15,10 @@
               <%= f.password_field :password_confirmation, autocomplete: "new-password",placeholder: "Password Confirm"  %>
 
               <%= f.submit "Sign up" %>
+
+                <br /><br /><br />
+                 <%= render "devise/shared/links"  %>
+
         </div> 
         
         <div class="right">
@@ -22,12 +26,6 @@
           
           <button type="button"  class="social-signin facebook">Log in with facebook</button>
           <button type="button" class="social-signin google">Log in with Google</button>
-          <br /><br />
-        
-             <h3>
-                 <%= render "devise/shared/links" %>
-             </h3>
-
         </div>
         <div class="or">OR</div>
     </div>

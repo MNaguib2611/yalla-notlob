@@ -9,7 +9,11 @@ Rails.application.routes.draw do
   get 'groups/:group_id/details', to: 'groups#groupDetails', as: 'group_details'
   put 'orders/:orderId/status', to: 'orders#updateStatus', as: 'update_state'
   delete 'groups/:group_id/delete/:user_id', to: 'groups#removeFriendFromGroup', as: 'delete_friend_from_group'
+  # devise_scope :user do
+  #   root to: "devise/sessions#new"
+  # end
   root 'users#index'
+
   
   post 'orders/checkInvitedExistance', to: 'orders#checkInvitedExistance', :as => 'checkInvitedExistance'
   patch '/invitations/:invitation', to: 'user_invitations#update', as: 'update_invitation_status'
@@ -21,7 +25,7 @@ Rails.application.routes.draw do
   get 'friends/show', to: 'friends#show'
 
   resources :user_join_orders
-  resources :user_invited_to_orders
+resources :user_invited_to_orders
   resources :order_items
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

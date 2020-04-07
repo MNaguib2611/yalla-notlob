@@ -1,6 +1,6 @@
 class UserJoinOrdersController < ApplicationController
   def index
-    @orders = Order.find(2)
+    @orders = Order.find(params[:order_id])
     @user_joined_order = UserJoinOrder.where(order_id:@orders.id)
     p @user_joined_order
   end
@@ -12,8 +12,11 @@ class UserJoinOrdersController < ApplicationController
     p "params values: #{params}"
 
     @user_joined_order = UserJoinOrder.find(params[:id])
+    user_order_id=@user_joined_order.order_id
     @user_joined_order.destroy
-    redirect_to :order_items
+    
+    redirect_to :controller => "user_join_orders", :action => "index", :order_id => user_order_id
+
 
   end
 

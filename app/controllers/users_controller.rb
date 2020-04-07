@@ -4,7 +4,9 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    ## User's Orders
+  #  p(current_user);
+    if user_signed_in? 
+      ## User's Orders
     @orders = User.find(current_user.id).orders.where(status: 'waiting').to_a
     
     ## Joined Orders
@@ -43,6 +45,10 @@ class UsersController < ApplicationController
     
     # @info = [user_orders: @orders, friends_data: @friends_data, joined_orders: @joined_orders]
     @info = [user_orders: @orders, joined_orders: @friends_orders]
+    else 
+      redirect_to new_user_registration_path, notice: "Please Login to view that page!"
+    end 
+    
   end
 
   # GET /users/1

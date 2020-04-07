@@ -15,5 +15,12 @@ module YallaNotlob
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+    # config.to_prepare do
+    #   Devise::SessionsController.layout "app/views/layouts/custom-layout"
+    #   Devise::RegistrationsController.layout "app/views/layouts/custom-layout"
+    #   # Devise::ConfirmationsController.layout "your_layout_name"
+    #   # Devise::UnlocksController.layout "your_layout_name"
+    #   # Devise::PasswordsController.layout "your_layout_name"
+    # end
   end
 end

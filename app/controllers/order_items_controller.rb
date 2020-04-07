@@ -7,12 +7,11 @@ class OrderItemsController < ApplicationController
     @orders = Order.find(params[:order_id])
     @orderItems = OrderItem.where(order_id:@orders.id)
     p @orderItems
-  #   @users_joined_order = UserJoinOrder.where(order_id:@orders.id)
-  #   @users_joined=@users_joined_order.ids 
-  #   @users_joined.each do |user|
-  #     @userData = User.where("id = ?", user);
-  #     p @userData
-  #   end
+    @users_joined_order = UserJoinOrder.where(order_id:@orders.id)
+    @num_joined=@users_joined_order.count 
+    @users_invited_to_order = UserInvitedToOrder.where(order_id:@orders.id)
+    @num_invited=@users_invited_to_order.count 
+
   # else
     # redirect_to new_user_session_path, notice: 'You are not logged in.'
   # end

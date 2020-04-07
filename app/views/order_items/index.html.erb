@@ -54,13 +54,12 @@
 </tr>
 </thead>
 <tbody>
+<tr>
 <td>
-<%= link_to "Joined Friends Click to view", {:controller => "user_join_orders", :action => "index", :order_id => @orders.id} %>
-
+<%= link_to "#{@num_joined} Joined Friends Click to view", {:controller => "user_join_orders", :action => "index", :order_id => @orders.id} %>
 </td>
 <td>
-
-<%= link_to  "Invited Friends Click to view",  {:controller => "user_invited_to_orders", :action => "index", :order_id => @orders.id} %>
+<%= link_to  "#{@num_invited} Invited Friends Click to view",  {:controller => "user_invited_to_orders", :action => "index", :order_id => @orders.id} %>
 </td>
 </tr>
 

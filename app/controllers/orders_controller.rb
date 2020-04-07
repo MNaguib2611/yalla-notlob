@@ -1,7 +1,15 @@
 class OrdersController < ApplicationController
   # include Pagy::Backend
+  before_action :auth
   before_action :set_order, only: [:show, :edit, :update, :destroy]
   respond_to :json, :html, :js
+
+  def auth
+    if ! current_user
+      redirect_to new_user_session_path, notice: 'You are not logged in.'
+    end
+  end
+
   # GET /orders
   # GET /orders.json
   def index

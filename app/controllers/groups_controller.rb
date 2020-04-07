@@ -1,15 +1,21 @@
 class GroupsController < ApplicationController
+  before_action :auth
   before_action :set_group, only: [:show, :edit, :update, :destroy]
 
+  def auth
+    if ! current_user
+      redirect_to new_user_session_path, notice: 'You are not logged in.'
+    end
+  end
   # GET /groups
   # GET /groups.json
   def index
-    if current_user
-      @groups = User.find(current_user.id).groups + Group.find_by_sql("SELECT groups.name as name, groups.id as id  from groups, users where users.id = groups.user_id and #{current_user.id} = groups.user_id")
-      p @groups
-    else
-      redirect_to new_user_session_path, notice: 'You are not logged in.'
-    end
+    # if current_user
+      @groups = User.find(current_user.id).groups + Group.find_by_sql("SELECT groups.name as name, groups.id as id, groups.user_id  from groups, users where users.id = groups.user_id and #{current_user.id} = groups.user_id")
+      # p @groups
+    # else
+      # redirect_to new_user_session_path, notice: 'You are not logged in.'
+    # end
   end
 
   # GET /groups/1
@@ -36,7 +42,8 @@ class GroupsController < ApplicationController
     respond_to do |format|
       if @group.save
         format.js
-        @groups = User.find(current_user.id).groups
+        @groups = User.find(current_user.id).groups + Group.find_by_sql("SELECT groups.name as name, groups.id as id,groups.user_id  from groups, users where users.id = groups.user_id and #{current_user.id} = groups.user_id")
+        p @groups
       else
         format.js
         @group.errors.each do |key, value|
@@ -86,14 +93,18 @@ class GroupsController < ApplicationController
 
   def addFriendToGroup
     respond_to do |format|
-      @users = User.find(current_user.id).users.where(email: params[:email])
-      if @users.size == 0
+      @users = User.find(current_user.id).users.where(email: params[:email]) + User.find(current_user.id).friends.where(email: params[:email])
+
+      if params[:email].to_s.strip.length == 0
+        format.js
+        @error = "email can't be blank"
+      elsif @users.size == 0
         format.js
         @error = "Can not add this user in group"
 
       else
-        @users_not_exist = Group.find(params[:group_id]).users.where.not(email: params[:email])
-        if @users_not_exist.size != 0 || Group.find(params[:group_id]).user_id == @users[0].id
+        @user_is_exist = Group.find(params[:group_id]).users.where(email: params[:email]).size != 0
+        if @user_is_exist || Group.find(params[:group_id]).user_id == @users[0].id
           format.js
           @error = "this user already exist in group"
         else
@@ -111,6 +122,7 @@ class GroupsController < ApplicationController
     respond_to do |format|
       format.js
       @group = Group.find(params[:group_id])
+      p @group
       @users = @group.users.where.not(id: current_user.id)
     end
   end

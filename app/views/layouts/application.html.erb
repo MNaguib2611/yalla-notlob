@@ -149,14 +149,15 @@
                         </a>
 
                         <div class="user-menu dropdown-menu">
+                            <%= current_user.name %><br>
                             <%# <a class="nav-link" href="#"><i class="fa fa- user"></i>My Profile</a> %>
-                            <%= link_to 'profile', main_app.edit_user_registration_path, :class => 'navbar-link' %>
-                            <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span
-                                    class="count">13</span></a>
+                            <%= link_to "Edit Profile", main_app.edit_user_registration_path, :class => 'navbar-link' %> <br>
+                            <%# <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span %>
+                                    <%# class="count">13</span></a> %>
 
-                            <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
+                            <%# <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a> %>
 
-                            <a class="nav-link" href="#"><i class="fa fa-power -off"></i>Logout</a>
+                            <%# <a class="nav-link" href="#"><i class="fa fa-power -off"></i>Logout</a> %>
                             <%= link_to "Logout", main_app.destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
 
                         </div>

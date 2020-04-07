@@ -1,14 +1,16 @@
+
 <% if @group %>
   $('#group-header-details').empty();
   $('#group-title').text('')
-  $('#group-header-details').prepend(`<h5 class="d-inline-block"><b>Add Friend</b></h5><div class="d-inline-block ">
+  $('#group-header-details').prepend(`<% if @group.user_id == current_user.id %><h5 class="d-inline-block"><b>Add Friend</b></h5><div class="d-inline-block ">
             <%= form_with url: add_friend_group_url(@group.id) , remote: true , method: 'post' do |form|  %>
-              <%= form.text_field "email",id:"email-input", placeholder:"Email",id: "email" %>
-              <%= form.submit "ADD" , :class =>"btn btn-dark btn-sm", data: { "disable-with": "Adding..." }  %>
+              <%= form.text_field "email", placeholder:"Email",id: "email" %>
+              <%= form.submit "ADD" , :class =>"btn btn-dark btn-sm add-friend-to-group", data: { "disable-with": "Adding..." }  %>
             <% end %>
           </div>
-          `)
+          <% end %>`)
 <% end %>
+$('#add-friend-errors').empty()
 
 $('.my-card-container').empty()
 <% if @users.size != 0 %>
@@ -18,7 +20,9 @@ $('.my-card-container').append(`<% @users.each do |user| %><div class="my-card">
           </div>
           <div class="my-card-body">
             <h6 class="card-title"><b><%= user.name %></b></h6>
+            <% if @group.user_id == current_user.id %>
             <%= link_to "Remove", delete_friend_from_group_url(@group.id,user.id), method: :delete , class: "btn btn-danger btn-sm" %>
+            <% end %>
           </div>
         </div><% end %>`)
 <% else %>

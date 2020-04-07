@@ -14,8 +14,10 @@ class UserJoinOrdersController < ApplicationController
     @user_joined_order = UserJoinOrder.find(params[:id])
     user_order_id=@user_joined_order.order_id
     @user_joined_order.destroy
-    
-    redirect_to :controller => "user_join_orders", :action => "index", :order_id => user_order_id
+    if @user_joined_order.destroy
+      flash[:notice] = "User was successfully destroyed."
+      redirect_to :controller => "user_join_orders", :action => "index", :order_id => user_order_id
+    end
 
 
   end

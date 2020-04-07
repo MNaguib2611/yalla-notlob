@@ -38,7 +38,10 @@ class OrderItemsController < ApplicationController
     @orderItem.order_id =  params[:order_id]
     @orderItem.save()
     if  @orderItem.save()
-    p @orderItem.id
+      flash[:notice] = "Item was successfully Added."
+    else
+      flash[:notice] = "unable to add this Item ."
+    
     end
     redirect_to controller: 'order_items', action: 'index', order_id: params[:order_id]
 
@@ -53,6 +56,9 @@ class OrderItemsController < ApplicationController
     p "***********************************"
     p "params values: #{params}"
     p "***********************************"
+    if  @orderItem.destroy
+      flash[:notice] = "Item was successfully destroyed."
+    end
     redirect_to controller: 'order_items', action: 'index', order_id: @order_id
 
     # respond_to do |format|

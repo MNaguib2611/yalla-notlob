@@ -1,10 +1,17 @@
-<h1>User Invited To Orders</h1>
-<div>
+<h2>User Invited To Orders</h2>
+<p id="notice"><%= notice %></p>
+
+<style>
+.table-wrap {
+  height: 400px;
+  overflow-y: auto;
+}
+</style>
+<div class="table-wrap">
   <div class="table-stats order-table ov-h">
     <table class="table ">
       <thead>
       <tr>
-        <!--        <th class="serial">#</th>-->
         <th>Person</th>
        
         <th>Actions</th>
@@ -25,7 +32,8 @@
   </tr>
   </tbody>
   </table>
-  <%= link_to 'Back', {:controller => "order_items", :action => "index", :order_id => @orders.id} %> 
 
 </div>
+
 </div>
+<%= link_to 'Back', {:controller => "order_items", :action => "index", :order_id => @orders.id} %> 

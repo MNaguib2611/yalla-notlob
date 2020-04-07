@@ -13,7 +13,11 @@ class UserInvitedToOrdersController < ApplicationController
     @user_invited_to_order = UserInvitedToOrder.find(params[:id])
     user_order_id=@user_invited_to_order.order_id
     @user_invited_to_order.destroy
-    redirect_to :controller => "user_invited_to_orders", :action => "index", :order_id => user_order_id
+    if @user_invited_to_order.destroy
+      flash[:notice] = "User was successfully destroyed."
+      redirect_to :controller => "user_invited_to_orders", :action => "index", :order_id => user_order_id
+    end
+
 
 
   end

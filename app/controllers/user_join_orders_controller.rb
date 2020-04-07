@@ -23,6 +23,11 @@ class UserJoinOrdersController < ApplicationController
     user_order_id=@user_joined_order.order_id
     @user_joined_order.destroy
     if @user_joined_order.destroy
+	@users_joined=OrderItem.where(order_id: user_order_id, user_id: User.select("id").where("id = ?", @user_joined_order.user_id))
+      if !@users_joined.empty?
+         @users_joined.destroy_all
+      end
+      p @users_joined
       flash[:notice] = "User was successfully destroyed."
       redirect_to :controller => "user_join_orders", :action => "index", :order_id => user_order_id
     end

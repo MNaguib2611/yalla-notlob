@@ -1,5 +1,14 @@
 module Notifications
   class NotificationsController < Notifications::ApplicationController
+    
+    before_action :auth
+
+    def auth
+      if ! current_user
+        redirect_to main_app.new_user_session_path, notice: 'You are not logged in.'
+      end
+    end
+
     def index
       @notifications = notifications.includes(:actor).order('id desc').page(params[:page])
 

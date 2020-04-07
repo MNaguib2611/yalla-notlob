@@ -1,6 +1,6 @@
 class UserInvitedToOrdersController < ApplicationController
   def index
-    @orders = Order.find(2)
+    @orders = Order.find(params[:order_id])
     @user_invited_to_order = UserInvitedToOrder.where(order_id:@orders.id)
     p @user_invited_to_order
   end
@@ -11,8 +11,10 @@ class UserInvitedToOrdersController < ApplicationController
     p "params values: #{params}"
 
     @user_invited_to_order = UserInvitedToOrder.find(params[:id])
+    user_order_id=@user_invited_to_order.order_id
     @user_invited_to_order.destroy
-    redirect_to :order_items
+    redirect_to :controller => "user_invited_to_orders", :action => "index", :order_id => user_order_id
+
 
   end
 end

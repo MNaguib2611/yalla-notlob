@@ -28,6 +28,7 @@
    width: 100%;
    height: auto;
    border: solid 2px #ccc;
+   margin-top: -15px;
 }
 #order-new legend {
    width: 160px;
@@ -74,3 +75,26 @@ input[type="submit"]{
 // #order-new .invitedDiv {
 //    display: block;
 // }
+#order-new .restuarantBtn{
+   padding: 0px;
+   width: 100%;
+   border: solid 1px gainsboro;
+}
+
+#order-new .invitedDiv{
+   padding: 0px;
+}
+
+#order-new .invitedBtn {
+   padding: 0px;
+   width: 84%;
+   border: solid 1px gainsboro;
+}
+
+#order-new .btn-success {
+   width: 15%;
+}
+
+#order-new .card{
+   padding: 10px;
+}

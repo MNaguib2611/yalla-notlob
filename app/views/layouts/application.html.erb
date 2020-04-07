@@ -47,9 +47,9 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Friends</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-th"></i><%= link_to "All Friends",friends_path %></li>
-                            <li><i class="fa fa-puzzle-piece"></i><%= link_to "Friends Requests",friends_path%> </li>
-                            <li><i class="fa fa-spinner"></i><%= link_to "Friends Activities",friends_path %></a></li>
+                            <li><i class="fa fa-th"></i><%= link_to "All Friends", main_app.friends_path %></li>
+                            <li><i class="fa fa-puzzle-piece"></i><%= link_to "Friends Requests",main_app.friends_path%> </li>
+                            <li><i class="fa fa-spinner"></i><%= link_to "Friends Activities",main_app.friends_path %></a></li>
                             <%# <li><i class="fa fa-book"></i><<%= link_to "Add Friends",new_friend_path </li>%>
                         </ul>
                     </li>
@@ -57,8 +57,8 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Groups</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-th"></i><%= link_to "All Groups",groups_path %></li>
-                            <li><i class="menu-icon fa fa-th"></i><%= link_to "Create Group",new_group_path %></li>
+                            <li><i class="menu-icon fa fa-th"></i><%= link_to "All Groups", main_app.groups_path %></li>
+                            <li><i class="menu-icon fa fa-th"></i><%= link_to "Create Group",main_app.new_group_path %></li>
                         </ul>
                     </li>
 
@@ -67,9 +67,9 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Orders</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-sign-in"></i><%= link_to "All Orders",orders_path %></li>
-                            <li><i class="menu-icon fa fa-sign-in"></i><%= link_to "New Order",new_order_path %></li>
-                            <li><i class="menu-icon fa fa-paper-plane"></i><%= link_to "Invitations",user_invited_to_orders_path %>
+                            <li><i class="menu-icon fa fa-sign-in"></i><%= link_to "All Orders",main_app.orders_path %></li>
+                            <li><i class="menu-icon fa fa-sign-in"></i><%= link_to "New Order",main_app.new_order_path %></li>
+                            <li><i class="menu-icon fa fa-paper-plane"></i><%= link_to "Invitations",main_app.user_invited_to_orders_path %>
                             </li>
                         </ul>
                     </li>

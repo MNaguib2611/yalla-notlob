@@ -31,9 +31,13 @@ class OrderItemsController < ApplicationController
     @orderItem.price = params[:price]
     @orderItem.comment = params[:comment]
     # @orderItem.user_id = current_user.id
-    @user = User.where("name = ?", params[:person]).ids.first;
+     @user=UserJoinOrder.where(order_id: params[:order_id], user_id: User.select("id").where("name = ?", params[:person]))
+
+    # @user = User.where("name = ?", params[:person]).ids.first;
     p @user
-    @orderItem.user_id =@user;
+    if !@user.empty?
+    @orderItem.user_id =@user.first.user_id;
+    end
     @orderItem.order_id =  params[:order_id]
     @orderItem.save()
     if  @orderItem.save()

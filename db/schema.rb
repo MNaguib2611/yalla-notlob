@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_03_101708) do
+ActiveRecord::Schema.define(version: 2020_04_01_192538) do
 
   create_table "friends", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id"
@@ -25,23 +25,6 @@ ActiveRecord::Schema.define(version: 2020_04_03_101708) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id"
     t.index ["user_id"], name: "index_groups_on_user_id"
-  end
-
-  create_table "notifications", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "actor_id"
-    t.column "notify_type", "enum('invitation','invitation_update')"
-    t.string "target_type"
-    t.integer "target_id"
-    t.string "second_target_type"
-    t.integer "second_target_id"
-    t.string "third_target_type"
-    t.integer "third_target_id"
-    t.datetime "read_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id", "notify_type"], name: "index_notifications_on_user_id_and_notify_type"
-    t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
   create_table "order_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -103,11 +86,11 @@ ActiveRecord::Schema.define(version: 2020_04_03_101708) do
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
+    t.string "name", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"

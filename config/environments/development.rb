@@ -36,6 +36,23 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+#reset password configuration
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :user_name => 'c09ad184b9d627',
+    :password => '2135bcd832f231',
+    :address => 'smtp.mailtrap.io',
+    :domain => 'smtp.mailtrap.io',
+    :port => '2525',
+    :authentication => :cram_md5
+  }
+
+
+
+
+
+
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 

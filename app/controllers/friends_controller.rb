@@ -1,5 +1,9 @@
 class FriendsController < ApplicationController
+
   def index
+    # if user_signed_in? 
+    #   redirect_to new_user_registration_path, notice: "Please Login to view that page!"
+    # end 
     @user=current_user
 
     # p @user.friends.length   ##rows in friends where current_user.id is friend_id
@@ -13,19 +17,29 @@ class FriendsController < ApplicationController
    
     # @friendsAll=User.all.where(id:@user.friends.pluck(:user_id)).where(id:@user.friends_data.pluck(:user_id))
     @friendsAll=User.all.where(id:[@user.friends.pluck(:user_id)]).or(User.all.where(id:[@user.friends_data.pluck(:friend_id)]))
-    p"here"
-    p @friendsAll.length
   end
 
   def create
-    p "here I am"
+    @user=current_user
+    @friendsAll=User.all.where(id:[@user.friends.pluck(:user_id)]).or(User.all.where(id:[@user.friends_data.pluck(:friend_id)]))
+    if params["email"]==@user.email
+      p
+      flash[:error] = "you can't add yourself to your friends."
+      redirect_to :friends
+    end  
+    for friend in @friendsAll do
+      if friend.email==params["email"]
+              flash[:error] = "your are already friends."
+              redirect_to :friends
+      end
+    end      
     friendFromUsersTable=User.all.where(email:params["email"]).first()
     @friend = Friend.new
     @friend.user_id =current_user.id
     @friend.friend_id = friendFromUsersTable.id
     @friend.save
     p @friend
-    if @friend.save
+    if @friend.save and 
       flash[:notice] = "Added friend."
       redirect_to :friends
     else
@@ -35,7 +49,6 @@ class FriendsController < ApplicationController
   end
 
   def destroy
-   
     Friend.where(friend_id:params["friend_id"]).where(user_id:current_user.id ).destroy_all
     Friend.where(friend_id:current_user.id).where(user_id:params["friend_id"] ).destroy_all
 

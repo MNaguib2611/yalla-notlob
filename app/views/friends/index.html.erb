@@ -1,6 +1,11 @@
 <h1>Friends</h1>
-<p id="notice"><%= notice %></p>
-
+<% flash.each do |key, value| %>
+<% if key=="notice" %>
+  <div class="alert alert-success"><%= value %></div>
+<% elsif key=="error" %>
+  <div class="alert alert-danger" ><%= value %></div>
+<% end %>
+<% end %>
 <div class="container">
    <div class="row">
       <div class="col-md-12">
@@ -43,7 +48,7 @@
                                     <form accept-charset="UTF-8" action="<%= friends_destroy_path %>" method="post">
                                         <input name="_method" type="hidden" value="delete" />
                                         <input name="utf8" type="hidden" value="&#x2713;" />
-                                        <input name="authenticity_token" type="hidden" value="f755bb0ed134b76c432144748a6d4b7a7ddf2b71" />
+                                        <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
                                         <input name="friend_id" type="hidden" value="<%=friend.id %>" />
                                         <button class="btn btn-sm btn-danger">unfriend</button>
                                     </form>

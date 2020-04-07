@@ -16,13 +16,13 @@ default: &default
   host: 127.0.0.1
   username: root
   password:
-  socket: /opt/lampp/var/mysql/mysql.sock
-
+  # socket: /opt/lampp/var/mysql/mysql.sock
+  socket: /var/lib/mysql/mysql.sock
 development:
   <<: *default
   database: yalla_notlob
   username: root
-#  password: ITIintake40
+  password: ITIintake40
 
 
 # Warning: The database defined as "test" will be erased and

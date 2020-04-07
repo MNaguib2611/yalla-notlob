@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   def index
   #  p(current_user);
     if user_signed_in? 
+      p "working"
       ## User's Orders
     @orders = User.find(current_user.id).orders.where(status: 'waiting').to_a
     

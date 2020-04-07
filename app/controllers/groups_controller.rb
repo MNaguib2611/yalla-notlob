@@ -93,7 +93,8 @@ class GroupsController < ApplicationController
 
   def addFriendToGroup
     respond_to do |format|
-      @users = User.find(current_user.id).users.where(email: params[:email])
+      @users = User.find(current_user.id).users.where(email: params[:email]) + User.find(current_user.id).friends.where(email: params[:email])
+
       if params[:email].to_s.strip.length == 0
         format.js
         @error = "email can't be blank"
@@ -102,8 +103,8 @@ class GroupsController < ApplicationController
         @error = "Can not add this user in group"
 
       else
-        @users_not_exist = Group.find(params[:group_id]).users.where.not(email: params[:email])
-        if @users_not_exist.size != 0 || Group.find(params[:group_id]).user_id == @users[0].id
+        @user_is_exist = Group.find(params[:group_id]).users.where(email: params[:email]).size != 0
+        if @user_is_exist || Group.find(params[:group_id]).user_id == @users[0].id
           format.js
           @error = "this user already exist in group"
         else

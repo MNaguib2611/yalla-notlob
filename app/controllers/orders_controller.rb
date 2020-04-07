@@ -41,7 +41,7 @@ class OrdersController < ApplicationController
       invitedFriends = params[:invited].split(',');
       saveInUserInvitedToOrder(invitedFriends);
     end
-    redirect_to action: :new
+    redirect_to action: :index
   end
   
   def checkInvitedExistance

@@ -21,10 +21,12 @@
       })
    }
    function inviteFriends() {
-      const invitedValue = invited.value;
+      if (invited.value != "") {
+         const invitedValue = invited.value;
          invitedArr.push(invitedValue);
          invited.value = "";
          addInvitedToList(invitedValue);
+      }
    }
    
    function addInvitedToList(invitedValue){

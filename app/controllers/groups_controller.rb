@@ -5,8 +5,8 @@ class GroupsController < ApplicationController
   # GET /groups.json
   def index
     if current_user
-      @groups = User.find(current_user.id).groups + Group.find_by_sql("SELECT groups.name as name, groups.id as id  from groups, users where users.id = groups.user_id and #{current_user.id} = groups.user_id")
-      p @groups
+      @groups = User.find(current_user.id).groups + Group.find_by_sql("SELECT groups.name as name, groups.id as id, groups.user_id  from groups, users where users.id = groups.user_id and #{current_user.id} = groups.user_id")
+      # p @groups
     else
       redirect_to new_user_session_path, notice: 'You are not logged in.'
     end
@@ -36,7 +36,8 @@ class GroupsController < ApplicationController
     respond_to do |format|
       if @group.save
         format.js
-        @groups = User.find(current_user.id).groups
+        @groups = User.find(current_user.id).groups + Group.find_by_sql("SELECT groups.name as name, groups.id as id,groups.user_id  from groups, users where users.id = groups.user_id and #{current_user.id} = groups.user_id")
+        p @groups
       else
         format.js
         @group.errors.each do |key, value|
@@ -87,7 +88,10 @@ class GroupsController < ApplicationController
   def addFriendToGroup
     respond_to do |format|
       @users = User.find(current_user.id).users.where(email: params[:email])
-      if @users.size == 0
+      if params[:email].to_s.strip.length == 0
+        format.js
+        @error = "email can't be blank"
+      elsif @users.size == 0
         format.js
         @error = "Can not add this user in group"
 
@@ -111,6 +115,7 @@ class GroupsController < ApplicationController
     respond_to do |format|
       format.js
       @group = Group.find(params[:group_id])
+      p @group
       @users = @group.users.where.not(id: current_user.id)
     end
   end

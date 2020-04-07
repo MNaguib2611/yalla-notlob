@@ -26,28 +26,31 @@
 <%#= link_to 'New Group', new_group_path %>
 -->
 <div class="d-flex flex-column align-content-center align-items-center">
-  <div >
+  <div>
     <h5 class="d-inline-block"><b>Group</b></h5>
     <div class="d-inline-block ">
-      <%= form_with url: groups_path , remote: true , method: "post" do |form|  %>
-        <%= form.text_field "name",id:"group-input" %>
-        <%= form.submit "ADD" , :class =>"btn btn-dark btn-sm", data: { "disable-with": "Adding..." }  %>
+      <%= form_with url: groups_path, remote: true, method: "post" do |form| %>
+        <%= form.text_field "name", id: "group-input", placeholder: "Group" %>
+        <%= form.submit "ADD", class: "btn btn-success add-group-btn", data: {"disable-with": "Adding..."} %>
       <% end %>
     </div>
     <div id="errors-group"></div>
   </div>
   <div class="d-flex flex-row " style="width: 100%; ">
 
-    <div id="groups" class="d-flex flex-column border-dark border rounded ml-4 mt-3 align-content-center align-items-center " style="width: 25%; border: #2E2F30 solid;">
+    <div id="groups" class="d-flex flex-column  border rounded ml-4 mt-3 align-content-center align-items-center " style="width: 25%; border: #2E2F30 solid;">
       <h6 class="mt-3 mb-3"><b>My Groups</b></h6>
-      <div style="height: 30rem">
+      <div style="height: auto">
         <table>
           <tbody id="group-table">
-          <% @groups.each do |group| p group %>
+          <% @groups.each do |group|
+            p group  %>
             <tr>
               <td style="width: 15rem;"><h4><%= group.name %></h4></td>
-              <td><%= link_to (fa_icon ("user-plus"), class: "fa-2x btn-outline-dark"), group_details_url(group.id), method: :get, remote: true %></td>
-              <td class="ml-5"><%= link_to (fa_icon ("times"), class: "fa-2x btn-outline-dark"), group, method: :delete %></td>
+                <td><%= link_to (fa_icon ("user-plus"), class: "fa-2x btn-outline-dark"), group_details_url(group.id), method: :get, remote: true %></td>
+              <% if group.user_id == current_user.id %>
+                <td class="ml-5"><%= link_to (fa_icon ("times"), class: "fa-2x btn-outline-dark"), group, method: :delete %></td>
+              <% end %>
             </tr>
           <% end %>
           <!--<tr>
@@ -70,8 +73,8 @@
       </div>
     </div>
 
-    <div id="group-members" class="d-flex flex-column border-dark border rounded ml-4 mt-3 align-content-center align-items-center " style="width: 70%; border: #2E2F30 solid;">
-<!--      <h6 class="mt-3 mb-3"><b id="group-title">No Selected Group</b></h6>-->
+    <div id="group-members" class="d-flex flex-column  border rounded ml-4 mt-3 align-content-center align-items-center " style="width: 70%; border: #2E2F30 solid;">
+      <h6 class="mt-3 mb-3"><b id="group-title">Group Details</b></h6>
       <div id="add-friend-errors"></div>
       <div id="group-header-details">
 

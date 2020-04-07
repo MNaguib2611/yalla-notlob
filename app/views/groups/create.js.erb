@@ -4,9 +4,12 @@ $('#errors-group').empty()
   $('#group-table').empty()
   $('#group-table').append('<% @groups.each do |group|  %> <tr>\n' +
       '            <td style="width: 15rem;"><h4><%= group.name %></h4></td>\n' +
-      '            <td><%= link_to (fa_icon ("user-plus"), class: "fa-2x btn-outline-dark"), group_details_url(group.id), method: :get %></td>\n' +
+      '            <td><%= link_to (fa_icon ("user-plus"), class: "fa-2x btn-outline-dark"), group_details_url(group.id), method: :get, remote: true %></td>\n' +
+      '             <% if group.user_id == current_user.id %>'+
       '            <td class="ml-5"><%= link_to (fa_icon ("times"), class: "fa-2x btn-outline-dark"), group, method: :delete %></td>\n' +
+      '             <% end %>'+
       '          </tr> <% end %>')
 <% else %>
   $('#errors-group').append('<div class="alert alert-danger"><% @groupErrors.each do |error|  %><li><%= error %></li><% end %></div>')
 <% end %>
+

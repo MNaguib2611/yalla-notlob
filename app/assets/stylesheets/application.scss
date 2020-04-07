@@ -48,9 +48,28 @@
    margin-top: -20px;
 }
 
-#inviteButton, #invited{
+.add-friend-to-group, #inviteButton, #invited, #group-input, #email {
    display: inline-block;
 }
+
+
+
+input[type="submit"]{
+  background-color: #2E2F30;
+  width: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  height: auto;
+  padding-top: 10px;
+}
+
+//.add-group-btn{
+//  display: inline-block;
+//  width: 5px;
+//  height: 5px;
+//  background-color: #2E2F30;
+//
+//}
 
 // #order-new .invitedDiv {
 //    display: block;

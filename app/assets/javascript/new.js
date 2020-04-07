@@ -1,6 +1,6 @@
-let invitedArr = [];
+   let invitedArr = [];
    const inviteButton = document.getElementById('inviteButton');
-   const publishbtn = document.getElementById('publishbtn');
+   const publishBtn = document.getElementById('publishBtn');
    const invited = document.getElementById('invited');
    
    function checkExistance() {
@@ -29,20 +29,29 @@ let invitedArr = [];
    
    function addInvitedToList(invitedValue){
       $('#invitedList').append(`
-         <div class="card mb-3" style="max-width: 540px;">
+         <div class="card mb-3 " style="max-width: 540px;">
             <div class="row no-gutters">
-               <div class="col-md-2">
+               <div class="col-md-6">
                   <img src="/assets/user.png" alt="user-photo" class="friendImage">
                </div>
-               <div class="col-md-8">
+               <div class="col-md-4">
                   <div class="card-body">
-                     <h5 class="friend-name"> ${invitedValue} </h5>
-                     <a href="#" class="btn btn-danger">Remove</a>
+                     <h5 class="friend-name">${invitedValue}</h5>
                   </div>
                </div>
             </div>
+            <a href="javascript:void(0);" class="btn btn-danger removeBtn">Remove</a>
          </div>
       `)
+      $(document).on("click", "a.btn" , function() {
+         $(this).parent().remove();
+         deletedValue = $(this).parent().find('.friend-name').text();
+         removeInvited(deletedValue);
+      });
+   }
+   
+   function removeInvited(deletedValue) {
+      invitedArr = invitedArr.filter(e => e !== deletedValue);
    }
    
    function setInvitedValue(invitedArr) {
@@ -50,7 +59,7 @@ let invitedArr = [];
    }
    
    inviteButton.addEventListener('click', checkExistance);
-   publishbtn.addEventListener('click', () => {
+   publishBtn.addEventListener('click', () => {
       // inviteFriends();
       setInvitedValue(invitedArr);
    });

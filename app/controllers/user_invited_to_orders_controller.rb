@@ -1,4 +1,12 @@
 class UserInvitedToOrdersController < ApplicationController
+  before_action :auth
+
+  def auth
+    if ! current_user
+      redirect_to new_user_session_path, notice: 'You are not logged in.'
+    end
+  end
+  
   def index
     @orders = Order.find(params[:order_id])
     @user_invited_to_order = UserInvitedToOrder.where(order_id:@orders.id)

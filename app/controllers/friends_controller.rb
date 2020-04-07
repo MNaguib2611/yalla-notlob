@@ -1,5 +1,13 @@
 class FriendsController < ApplicationController
 
+  before_action :auth
+
+  def auth
+    if ! current_user
+      redirect_to new_user_session_path, notice: 'You are not logged in.'
+    end
+  end
+
   def index
     # if user_signed_in? 
     #   redirect_to new_user_registration_path, notice: "Please Login to view that page!"

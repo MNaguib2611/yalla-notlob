@@ -1,15 +1,21 @@
 class GroupsController < ApplicationController
+  before_action :auth
   before_action :set_group, only: [:show, :edit, :update, :destroy]
 
+  def auth
+    if ! current_user
+      redirect_to new_user_session_path, notice: 'You are not logged in.'
+    end
+  end
   # GET /groups
   # GET /groups.json
   def index
-    if current_user
+    # if current_user
       @groups = User.find(current_user.id).groups + Group.find_by_sql("SELECT groups.name as name, groups.id as id, groups.user_id  from groups, users where users.id = groups.user_id and #{current_user.id} = groups.user_id")
       # p @groups
-    else
-      redirect_to new_user_session_path, notice: 'You are not logged in.'
-    end
+    # else
+      # redirect_to new_user_session_path, notice: 'You are not logged in.'
+    # end
   end
 
   # GET /groups/1

@@ -5,28 +5,31 @@
    
    function checkExistance() {
       nameValue = invited.value
-      $.ajax({
-         type: "POST",
-         beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-         url: "/orders/checkInvitedExistance",
-         dataType: "json",
-         data: {'keyword': nameValue},
-         success: function(result){
-            if (result.length == 0 ) {
-               invited.value = "does not match friend or group name";
-            } else {
-               inviteFriends();
+      if (nameValue != 0 && !invitedArr.includes(nameValue)) {
+         $.ajax({
+            type: "POST",
+            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+            url: "/orders/checkInvitedExistance",
+            dataType: "json",
+            data: {'keyword': nameValue},
+            success: function(result){
+               if (result.length == 0 ) {
+                  invited.value = "does not match friend or group name";
+               } else {
+                  inviteFriends();
+               }
             }
-         }
-      })
+         })
+      }
+      if(invitedArr.includes(nameValue)){
+         invited.value = "Already Invited!"
+      }
    }
    function inviteFriends() {
-      if (invited.value != "") {
          const invitedValue = invited.value;
          invitedArr.push(invitedValue);
          invited.value = "";
          addInvitedToList(invitedValue);
-      }
    }
    
    function addInvitedToList(invitedValue){

@@ -44,6 +44,7 @@ class OrdersController < ApplicationController
     @order.restaurant = params[:restaurant]
     @order.menu_img = params[:menu_img]
     @order.status =  "waiting"
+    @order.invited_num = 0
     @order.user_id = current_user.id
     if @order.save()
       invitedFriends = params[:invited].split(',');
@@ -53,6 +54,7 @@ class OrdersController < ApplicationController
   end
   
   def checkInvitedExistance
+    @userGroups = User.find(current_user.id).groups
     @users = User.where(name: params[:keyword]);
       if @users.length != 0
         status = "true"
@@ -60,34 +62,51 @@ class OrdersController < ApplicationController
       else
         @users = Group.where(name: params[:keyword])
           if @users.length != 0
-            result = true
-            respond_with(@users, :include => :status)
+            flag = 0
+            @users.each do |group|
+              if @userGroups.ids.include? group.id
+                flag = 1
+                result = true
+                respond_with(@users, :include => :status)
+              end
+            end
+            if flag == 0
+              @users = nil
+              respond_with(@users, :include => :status) 
+            end
           else
-            respond_with(new, :include => :status)
+            @users = nil
+            respond_with(@users, :include => :status)
           end
       end
   end
   
   def saveInUserInvitedToOrder(invitedFriends)
+    invited_num = 0
     invitedFriends.each do |invited|
       @user = User.where(name: invited);
       if @user.length != 0
           guest_id = @user.first.id
           InUserInvitedToOrderData(guest_id)
+          invited_num = invited_num + 1 
       else
           @users = Group.find_by(name: invited).users;
           if @users.length != 0
             @users.each do |user|
-              guest_id = user.id
-              InUserInvitedToOrderData(guest_id)
+              if user.id != current_user.id
+                guest_id = user.id
+                InUserInvitedToOrderData(guest_id)
+                invited_num = invited_num + 1 
+              end
             end
           else
-              p "this is not match friend or group"
+              p "this is not match friend or group";
           end
       end
     end
-    
+    updateInvitedNum(invited_num);
   end
+
 
   def InUserInvitedToOrderData(guest_id)
     @lastOrder = Order.where(user_id: current_user.id).order("created_at DESC").first;
@@ -97,6 +116,12 @@ class OrdersController < ApplicationController
     @userInvitedToOrder.guest_id = guest_id;
     @userInvitedToOrder.status = "pending"
     @userInvitedToOrder.save();
+  end
+
+
+  def updateInvitedNum(invited_num)
+    @lastOrder = Order.where(user_id: current_user.id).order("created_at DESC").first;
+    Order.update(@lastOrder.id, :invited_num => invited_num)
   end
 
   # PATCH/PUT /orders/1

@@ -24,36 +24,44 @@ class FriendsController < ApplicationController
     
    
     # @friendsAll=User.all.where(id:@user.friends.pluck(:user_id)).where(id:@user.friends_data.pluck(:user_id))
-    @friendsAll=User.all.where(id:[@user.friends.pluck(:user_id)]).or(User.all.where(id:[@user.friends_data.pluck(:friend_id)]))
+
+    @friendsAll=User.all.where(id:[@user.added_friends.pluck(:user_id)]).or(User.all.where(id:[@user.friends.pluck(:friend_id)]))
+
+    
+   
   end
 
   def create
     @user=current_user
-    @friendsAll=User.all.where(id:[@user.friends.pluck(:user_id)]).or(User.all.where(id:[@user.friends_data.pluck(:friend_id)]))
-    if params["email"]==@user.email
-      p
-      flash[:error] = "you can't add yourself to your friends."
-      redirect_to :friends
-    end  
-    for friend in @friendsAll do
-      if friend.email==params["email"]
-              flash[:error] = "your are already friends."
-              redirect_to :friends
-      end
-    end      
     friendFromUsersTable=User.all.where(email:params["email"]).first()
-    @friend = Friend.new
-    @friend.user_id =current_user.id
-    @friend.friend_id = friendFromUsersTable.id
-    @friend.save
-    p @friend
-    if @friend.save and 
-      flash[:notice] = "Added friend."
-      redirect_to :friends
+    @friendsAll=User.all.where(id:[@user.added_friends.pluck(:user_id)]).or(User.all.where(id:[@user.friends.pluck(:friend_id)]))
+
+    if params["email"]==@user.email
+      flash[:error] = "you can't add yourself to your friends."
+      return redirect_to :action => 'index'
+    elsif  !friendFromUsersTable
+      flash[:error] = "No such user"
+      return redirect_to :action => 'index'
     else
-      flash[:notice] = "Unable to add friend."
-      redirect_to :friends
-    end
+      for friend in @friendsAll do
+        if friend.email==params["email"]
+                flash[:error] = "your are already friends."
+                return redirect_to :action => 'index'
+        end
+      end 
+      @friend = Friend.new
+      @friend.user_id =current_user.id
+      @friend.friend_id = friendFromUsersTable.id
+      @friend.save
+      p @friend
+      if @friend.save and 
+        flash[:notice] = "Added friend."
+        redirect_to :friends
+      else
+        flash[:notice] = "Unable to add friend."
+        redirect_to :friends
+      end  
+    end  
   end
 
   def destroy

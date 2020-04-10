@@ -5,10 +5,10 @@
        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
        <%= render "devise/shared/error_messages", resource: resource %>
 
-       <%= f.email_field :email, autofocus: true, autocomplete: "email",placeholder: "email" %>
+       <%= f.email_field :email, autofocus: true, autocomplete: "email",placeholder: "Email" %>
 
        <br />
-       <%= f.password_field :password, autocomplete: "new-password",placeholder: "password" %>
+       <%= f.password_field :password, autocomplete: "new-password",placeholder: "Password" %>
         <br /><br />
        <% if devise_mapping.rememberable? %>
        <div class="field">
@@ -18,7 +18,7 @@
        <% end %>
 
 
-       <%= f.submit "Log in" %>
+       <%= f.submit "Log in", class: "btn btn-success" %>
        <br/><br/>
        
        <%= render "devise/shared/links" %>

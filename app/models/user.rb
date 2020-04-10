@@ -5,18 +5,21 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable ,
          :omniauthable, :omniauth_providers => [:facebook]
   
-  has_many :orders
+  has_many :orders, dependent: :delete_all
 
-  has_many :friends_data, foreign_key: :user_id, class_name: 'Friend'
+  has_many :friends_data, foreign_key: :user_id, class_name: 'Friend', dependent: :delete_all
   # has_many :groups , foreign_key: :user_id , class_name: 'Group'
-  has_many :added_friends, foreign_key: :friend_id, class_name: 'Friend'
-  has_many :users, through: :added_friends
+  has_many :added_friends, foreign_key: :friend_id, class_name: 'Friend', dependent: :delete_all
+  has_many :users, through: :added_friends, dependent: :delete_all
 
-  has_many :added_users, foreign_key: :user_id, class_name: 'Friend'
-  has_many :friends, through: :added_users
+  has_many :added_users, foreign_key: :user_id, class_name: 'Friend', dependent: :delete_all
+  has_many :friends, through: :added_users, dependent: :delete_all
 
-  has_and_belongs_to_many :groups, class_name:'Group', join_table:'user_groups'
-  has_many :user_notifications
+  has_and_belongs_to_many :groups, class_name:'Group', join_table:'user_groups', dependent: :delete_all
+  has_many :notifications, foreign_key: :user_id, dependent: :delete_all
+  has_many :order_items, dependent: :delete_all
+  has_many :user_invited_to_orders, foreign_key: :guest_id, dependent: :delete_all
+  has_many :user_join_orders, dependent: :delete_all
   #has_many :friends
   #has_many :friends, :source => :friend, :through => :friends
 

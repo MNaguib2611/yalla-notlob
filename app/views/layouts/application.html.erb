@@ -14,8 +14,7 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
-    <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
 
     <title>YallaNotlob</title>
@@ -48,8 +47,8 @@
                             aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Friends</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-th"></i><%= link_to "All Friends", main_app.friends_path %></li>
-                            <li><i class="fa fa-puzzle-piece"></i><%= link_to "Friends Requests",main_app.friends_path%> </li>
-                            <li><i class="fa fa-spinner"></i><%= link_to "Friends Activities",main_app.friends_path %></a></li>
+                            <%# <li><i class="fa fa-puzzle-piece"></i><%= link_to "Friends Requests",main_app.friends_path%><%#  </li> %>
+                            <%# <li><i class="fa fa-spinner"></i><%= link_to "Friends Activities",main_app.friends_path %><%#</a></li> %>
                             <%# <li><i class="fa fa-book"></i><<%= link_to "Add Friends",new_friend_path </li>%>
                         </ul>
                     </li>
@@ -58,7 +57,7 @@
                             aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Groups</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="menu-icon fa fa-th"></i><%= link_to "All Groups", main_app.groups_path %></li>
-                            <li><i class="menu-icon fa fa-th"></i><%= link_to "Create Group",main_app.new_group_path %></li>
+                            <%# <li><i class="menu-icon fa fa-th"></i><%= link_to "Create Group",main_app.new_group_path %><%#</li> %>
                         </ul>
                     </li>
 
@@ -69,7 +68,7 @@
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="menu-icon fa fa-sign-in"></i><%= link_to "All Orders",main_app.orders_path %></li>
                             <li><i class="menu-icon fa fa-sign-in"></i><%= link_to "New Order",main_app.new_order_path %></li>
-                            <li><i class="menu-icon fa fa-paper-plane"></i><%= link_to "Invitations",main_app.user_invited_to_orders_path %>
+                            <%# <li><i class="menu-icon fa fa-paper-plane"></i><%= link_to "Invitations",main_app.user_invited_to_orders_path %> <%#%>
                             </li>
                         </ul>
                     </li>
@@ -82,7 +81,7 @@
         <header id="header" class="header">
             <div class="top-left">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="./"><%= image_tag("/assets/logo.png",  alt: "logo") %></a>
+                    <a class="navbar-brand" href="/users"><%= image_tag("/assets/logo.png",  alt: "logo") %></a>
                     <a class="navbar-brand hidden" href="./"><%= image_tag("/assets/logo2.png",  alt: "logo") %></a>
                    <% if user_signed_in? %><a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a><% end %>
                 </div>
@@ -163,8 +162,9 @@
                         </div>
                     </div>
                     <% else %>
-                    <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> &nbsp;|&nbsp;
-                    <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
+                    <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link mt-3'  %> 
+                    <span style="margin-top: 16px;"> &nbsp;|&nbsp; </span>
+                    <%= link_to "Login", new_user_session_path, :class => 'navbar-link mt-3'  %>
                     <% end %>
 
 

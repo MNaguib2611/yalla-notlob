@@ -27,11 +27,12 @@
 -->
 <div class="d-flex flex-column align-content-center align-items-center">
   <div>
-    <h5 class="d-inline-block"><b>Group</b></h5>
-    <div class="d-inline-block ">
+    <%# <h5 class="d-inline-block mr-2"><b>Group</b></h5> %>
+    <div class="d-inline-block" style="margin-right: 5rem;">
+      <%# <h5 style="margin-right: 12px; margin-top: 25px;">Group</h5> %>
       <%= form_with url: groups_path, remote: true, method: "post" do |form| %>
         <%= form.text_field "name", id: "group-input", placeholder: "Group" %>
-        <%= form.submit "ADD", class: "btn btn-success add-group-btn", data: {"disable-with": "Adding..."} %>
+        <%= form.submit "ADD", class: "btn btn-success add-group-btn", data: {"disable-with": "Adding..."}, style: "margin-top:10px;"%>
       <% end %>
     </div>
     <div id="errors-group"></div>

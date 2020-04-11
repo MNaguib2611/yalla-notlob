@@ -144,7 +144,11 @@
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
-                            <%= image_tag("/assets/user.png",  alt: "User Avatar", class: "user-avatar rounded-circle") %>
+                            <% if current_user.image %>
+                                <%= image_tag(current_user.image,  alt: "User Avatar", class: "user-avatar rounded-circle") %>
+                            <% else %>
+                                <%= image_tag("/assets/user.png",  alt: "User Avatar", class: "user-avatar rounded-circle") %>
+                            <% end %>
                         </a>
 
                         <div class="user-menu dropdown-menu">

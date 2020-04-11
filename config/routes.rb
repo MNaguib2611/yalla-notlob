@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
   mount Notifications::Engine => "/notifications"
-  # devise_for :users
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
- 
   resources :orders
   resources :groups
   resources :users
@@ -11,9 +9,6 @@ Rails.application.routes.draw do
   get 'groups/:group_id/details', to: 'groups#groupDetails', as: 'group_details'
   put 'orders/:orderId/status', to: 'orders#updateStatus', as: 'update_state'
   delete 'groups/:group_id/delete/:user_id', to: 'groups#removeFriendFromGroup', as: 'delete_friend_from_group'
-  # devise_scope :user do
-  #   root to: "devise/sessions#new"
-  # end
   root 'users#index'
 
   

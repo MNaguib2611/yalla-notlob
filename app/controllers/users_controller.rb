@@ -6,7 +6,6 @@ class UsersController < ApplicationController
   def index
   #  p(current_user);
     if user_signed_in? 
-      p "working"
       ## User's Orders
     @orders = User.find(current_user.id).orders.where(status: 'waiting').to_a
     
@@ -55,9 +54,6 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    p "-----------------------"
-    p params[:id]
-    p "-----------------------"
     @user = User.find(params[:id]);
   end
 

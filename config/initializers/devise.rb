@@ -299,4 +299,15 @@ Devise.setup do |config|
 
   config.omniauth :facebook, "214833559738360", "f237bac743518eb88e7394cd16b0660c",
   callback_url: "http://localhost:3000/users/auth/facebook/callback"
+
+  # config.omniauth :google_oauth2, ENV['169166800420-2hcq0o824pej38vlh7eom8ht3rbu88d0.apps.googleusercontent.com'],
+  # ENV['TurJG93dd9Eh71r35VLGxUTP']
+
+client_id ='169166800420-2hcq0o824pej38vlh7eom8ht3rbu88d0.apps.googleusercontent.com';
+  Devise.setup do |config|  # Add the credentials from your Google application to your secrets  client_id = Rails.application.secrets[:google_client_id]
+    # client_secret = Rails.application.secrets[:google_secret]  # Configure Google omniauth with proper scope
+    client_secret ='TurJG93dd9Eh71r35VLGxUTP'
+    config.omniauth :google_oauth2, client_id, client_secret, {
+      scope: "userinfo.email"
+    }end
 end

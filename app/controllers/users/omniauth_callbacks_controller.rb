@@ -1,6 +1,5 @@
 ##Facebook login
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-    before_action :testf
     def facebook
         @user = User.from_omniauth(request.env["omniauth.auth"])
        
@@ -13,11 +12,31 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         end
     end
 
+
+
+    def google_oauth2
+        @user = User.from_omniauth(request.env["omniauth.auth"])
+        if @user.persisted?
+            p "----------------persisted-------------------"
+            p is_navigational_format?
+            sign_in @user, :event => :authentication #this will throw if @user is not activated
+            #??????????????????????????????????
+            set_flash_message(:notice, :success, :kind => "Google") if is_navigational_format?
+            #??????????????????????????
+        else
+            session["devise.google_data"] = request.env["omniauth.auth"]
+        end
+        redirect_to new_user_registration_url
+    end
+
+
+
+
+
     def failure
         redirect_to root_path
     end
-    def testf
-        p "here"
-        p @user
-    end    
+    
 end
+
+

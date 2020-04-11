@@ -3,7 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable ,
-         :omniauthable, :omniauth_providers => [:facebook]
+         :omniauthable, :omniauth_providers => [:facebook,:google_oauth2]
   
   has_many :orders, dependent: :delete_all
 
@@ -35,12 +35,30 @@ end
 
 
 def self.from_omniauth(auth)
-  where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-    user.email = auth.info.email
-    user.password = Devise.friendly_token[0,20]
-    user.name = auth.info.name # assuming the user model has a name
-    user.image = auth.info.image # assuming the user model has an image
+  if auth.provider=="facebook"
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0,20]
+      user.name = auth.info.name # assuming the user model has a name
+      user.image = auth.info.image # assuming the user model has an image
+    end
+  else
+    # Either create a User record or update it based on the provider (Google) and the UID   
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      p "--------------------"
+      p auth.info
+      p "--------------------"
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0,20]
+      user.name = auth.info.name.split("@")[0] # assuming the user model has a name
+      user.image = auth.info.image # assuming the user model has an image
+      user.token = auth.credentials.token
+      user.expires = auth.credentials.expires
+      user.expires_at = auth.credentials.expires_at
+      user.refresh_token = auth.credentials.refresh_token
+    end
   end
+  
 end
 
 

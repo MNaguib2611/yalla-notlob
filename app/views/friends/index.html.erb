@@ -41,9 +41,14 @@
                         <div class="col-md-6 mb-3">
                            <div class="p-10 bg-white">
                               <div class="media media-xs overflow-visible">
-                                 <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="" style="width:100px;height:100px;"class="media-object img-circle">
+                                <% if friend.image %>
+                                     <img src="<%= friend.image %>" alt="" style="width:100px;height:100px;"class="media-object img-circle">
+                                <% else %>
+                                    <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="" style="width:100px;height:100px;"class="media-object img-circle">
+                                <% end %>
                                  <div class="media-body valign-middle pl-5 pt-4">
-                                    <b class="text-inverse"><%= friend.name %></b>
+                                    <b class="text-inverse"><%= friend.name %></b><br/>
+                                    <small><%= friend.email %></small>
                                 </div>
                                     <form accept-charset="UTF-8" action="<%= friends_destroy_path %>" method="post">
                                         <input name="_method" type="hidden" value="delete" />

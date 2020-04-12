@@ -41,37 +41,25 @@
                     <li class="active">
                         <a href="/users"><i class="menu-icon fa fa-laptop"></i>Home </a>
                     </li>
-                    <li class="menu-title">Social</li><!-- /.menu-title -->
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Friends</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-th"></i><%= link_to "All Friends", main_app.friends_path %></li>
-                            <%# <li><i class="fa fa-puzzle-piece"></i><%= link_to "Friends Requests",main_app.friends_path%><%#  </li> %>
-                            <%# <li><i class="fa fa-spinner"></i><%= link_to "Friends Activities",main_app.friends_path %><%#</a></li> %>
-                            <%# <li><i class="fa fa-book"></i><<%= link_to "Add Friends",new_friend_path </li>%>
-                        </ul>
+                    <li class="menu-title">Friends</li><!-- /.menu-title -->
+                    <li class="menu-item ">
+                    <%= link_to "All Friends", main_app.friends_path %>
                     </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Groups</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-th"></i><%= link_to "All Groups", main_app.groups_path %></li>
-                            <%# <li><i class="menu-icon fa fa-th"></i><%= link_to "Create Group",main_app.new_group_path %><%#</li> %>
-                        </ul>
-                    </li>
+                   <li class="menu-item ">&nbsp;</li>
 
-                    <li class="menu-title">Orders</li><!-- /.menu-title -->
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Orders</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-sign-in"></i><%= link_to "All Orders",main_app.orders_path %></li>
-                            <li><i class="menu-icon fa fa-sign-in"></i><%= link_to "New Order",main_app.new_order_path %></li>
-                            <%# <li><i class="menu-icon fa fa-paper-plane"></i><%= link_to "Invitations",main_app.user_invited_to_orders_path %> <%#%>
-                            </li>
-                        </ul>
+                     <li class="menu-title">Groups</li>
+                    <li class="menu-item ">
+                    <%= link_to "All Groups", main_app.groups_path %>
                     </li>
+                  <li class="menu-item ">&nbsp;</li>
+                    <li class="menu-title">Orders</li><!-- /.menu-title -->
+                    <li class="menu-item ">
+                   <%= link_to "All Orders",main_app.orders_path %>
+                    </li>
+                    <li class="menu-item ">
+                    <%= link_to "New Order",main_app.new_order_path %>
+                    </li>
+                   
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
@@ -94,51 +82,12 @@
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="notification"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-bell"></i>
-                                <%# <span class="count bg-danger"><%= current_user.user_notifications.unread_notifications.count %><%#</span> %>
                                 <span class="count bg-danger"><%= Notification.unread_count(current_user) %></span>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="notification">
                                 <p class="red"> You have <%= link_to pluralize(Notification.unread_count(current_user), 'Notification'), main_app.notifications_path %></p>
-                                <%# <% current_user.user_notifications.unread_notifications.each do |notif| %> <%#%>
-                                    <%# <a class="dropdown-item media" href="#"> %>
-                                        <%# <i class="fa fa-info"></i> %>
-                                        <%# <p><%= notif.notification %><%#</p> %>
-                                    <%# </a>                                 %>
-                                <%# <% end %> <%#%%>
-                                <%# <a class="dropdown-item media" href="#">
-                                    <i class="fa fa-check"></i>
-                                    <p>View All</p>
-                                </a> %>
                             </div>
                         </div>
-
-                        <%# <div class="dropdown for-message">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="message"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-envelope"></i>
-                                <span class="count bg-primary">4</span>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="message">
-                                <p class="red">You have 4 Mails</p>
-                                <a class="dropdown-item media" href="#">
-                                    <span class="photo media-left"><img alt="avatar" src="images/avatar/1.jpg"></span>
-                                    <div class="message media-body">
-                                        <span class="name float-left">Jonathan Smith</span>
-                                        <span class="time float-right">Just now</span>
-                                        <p>Hello, this is an example msg</p>
-                                    </div>
-                                </a>
-
-                                <a class="dropdown-item media" href="#">
-                                    <span class="photo media-left"><img alt="avatar" src="images/avatar/4.jpg"></span>
-                                    <div class="message media-body">
-                                        <span class="name float-left">Rachel Santos</span>
-                                        <span class="time float-right">15 minutes ago</span>
-                                        <p>Lorem ipsum dolor sit amet, consectetur</p>
-                                    </div>
-                                </a>
-                            </div>
-                        </div> %>
                     </div>
 
                     <div class="user-area dropdown float-right">

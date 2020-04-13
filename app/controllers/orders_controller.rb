@@ -49,13 +49,16 @@ class OrdersController < ApplicationController
     if @order.save()
       invitedFriends = params[:invited].split(',');
       saveInUserInvitedToOrder(invitedFriends);
+      saveInUserJoinOrder();
     end
     redirect_to action: :index
   end
   
+  
   def checkInvitedExistance
     @userGroups = User.find(current_user.id).groups
-    @users = User.where(name: params[:keyword]);
+    
+    @users = User.where(email: params[:keyword]);
       if @users.length != 0
         status = "true"
         respond_with(@users, :include => :status)
@@ -64,7 +67,7 @@ class OrdersController < ApplicationController
           if @users.length != 0
             flag = 0
             @users.each do |group|
-              if @userGroups.ids.include? group.id
+              if @userGroups.ids.include? group.id or group.user_id === current_user.id
                 flag = 1
                 result = true
                 respond_with(@users, :include => :status)
@@ -118,6 +121,13 @@ class OrdersController < ApplicationController
     @userInvitedToOrder.save();
   end
 
+  def saveInUserJoinOrder()
+    @lastOrder = Order.where(user_id: current_user.id).order("created_at DESC").first;
+    @userJoinOrder = UserJoinOrder.new
+    @userJoinOrder.order_id = @lastOrder.id;
+    @userJoinOrder.user_id = current_user.id;
+    @userJoinOrder.save();
+  end
 
   def updateInvitedNum(invited_num)
     @lastOrder = Order.where(user_id: current_user.id).order("created_at DESC").first;

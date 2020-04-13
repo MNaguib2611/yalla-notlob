@@ -14,9 +14,11 @@
             data: {'keyword': nameValue},
             success: function(result){
                if (result.length == 0 ) {
-                  invited.value = "does not match friend or group name";
+                  invited.value = "does not match friend email / group name";
                } else {
-                  inviteFriends();
+                  console.log(result[0].name);
+                  invitedValue = result[0].name;
+                  inviteFriends(invitedValue);
                }
             }
          })
@@ -25,8 +27,8 @@
          invited.value = "Already Invited!"
       }
    }
-   function inviteFriends() {
-         const invitedValue = invited.value;
+   function inviteFriends(invitedValue) {
+         // const invitedValue = invited.value;
          invitedArr.push(invitedValue);
          invited.value = "";
          addInvitedToList(invitedValue);

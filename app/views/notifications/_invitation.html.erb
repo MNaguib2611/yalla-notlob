@@ -1,7 +1,8 @@
 
 <div class="container">
     <%= link_to notification.actor.name, main_app.user_path(notification.actor) %> has invited you to
-    <%= link_to notification.second_target.order_type, main_app.order_path(notification.second_target) %>
+    <%= notification.second_target.order_type %>
+    <%# <%= link_to notification.second_target.order_type, main_app.order_items_path(:order_id => notification.second_target.id) %> <%#%>
     <% @invitation_status = UserInvitedToOrder.find(notification.target.id).status %>
     <% if @invitation_status == 'accepted' %>
         <p>You <b>Joined</b> the Order</p>

@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :orders, dependent: :delete_all
 
   has_many :friends_data, foreign_key: :user_id, class_name: 'Friend', dependent: :delete_all
+  has_many :other_friends, foreign_key: :friend_id, class_name: 'Friend'
   # has_many :groups , foreign_key: :user_id , class_name: 'Group'
   has_many :added_friends, foreign_key: :friend_id, class_name: 'Friend', dependent: :delete_all
   has_many :users, through: :added_friends, dependent: :delete_all

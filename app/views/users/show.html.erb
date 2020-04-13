@@ -2,6 +2,7 @@
 <h3><%= @user.name %></h3>
 <h4>Email: <%= @user.email %></h4>
 <h5>Number of Orders: <%= @user.orders.count %></h5>
-<h5>Number of Friends: <%= @user.friends_data.count + @user.friends.count %></h5>
+<h5>Number of Friends: <%= @user.friends_data.count + @user.other_friends.count %></h5>
+<%# + @user.friends.count%>
 <%# <%= link_to 'Edit', edit_user_path(@user) %> <%#| %>
 <%# <%= link_to 'Back', users_path %> <%#%>

@@ -36,7 +36,9 @@
           <td> <%= orderItem.price %></td>
           <td> <%= orderItem.comment %></td>
           <td>
-            <%= link_to 'Cancel',  orderItem, method: :delete, class:"btn btn-danger btn-sm" %>
+            <% if orderItem.user_id == current_user.id %>
+              <%= link_to 'Cancel',  orderItem, method: :delete, class:"btn btn-danger btn-sm" %>
+            <% end %>
           </td>
           
           </tr>

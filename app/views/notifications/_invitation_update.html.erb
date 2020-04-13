@@ -7,6 +7,6 @@
         <%= 'Rejected' %>
     <% end %>
         your invitation to
-    <%= link_to notification.second_target.order_type, main_app.order_path(notification.second_target) %>
-
+    <%= link_to notification.second_target.order_type, main_app.order_items_path(:order_id => notification.second_target.id) %>
+    <%# <%= link_to notification.second_target.order_type, main_app.order_path(notification.second_target) %> <%#%>
 </div>

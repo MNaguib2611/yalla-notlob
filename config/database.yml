@@ -17,7 +17,7 @@ default: &default
   username: root
   # password: 41195
   # socket: /opt/lampp/var/mysql/mysql.sock
-  socket: /var/lib/mysql/mysql.sock
+  socket: /opt/lampp/var/mysql/mysql.sock
 development:
   <<: *default
   database: yalla_notlob

@@ -1,4 +1,5 @@
    let invitedArr = [];
+   // invitedArr = [];
    const inviteButton = document.getElementById('inviteButton');
    const publishBtn = document.getElementById('publishBtn');
    const invited = document.getElementById('invited');
@@ -17,15 +18,18 @@
                   invited.value = "does not match friend email / group name";
                } else {
                   console.log(result[0].name);
+                  console.log(invitedArr)
                   invitedValue = result[0].name;
-                  inviteFriends(invitedValue);
+                  if(invitedArr.includes(invitedValue)){
+                     invited.value = "Already Invited!"
+                  }else{
+                     inviteFriends(invitedValue);
+                  }
                }
             }
          })
       }
-      if(invitedArr.includes(nameValue)){
-         invited.value = "Already Invited!"
-      }
+     
    }
    function inviteFriends(invitedValue) {
          // const invitedValue = invited.value;
@@ -41,7 +45,7 @@
                <div class="col-md-6">
                   <img src="/assets/user.png" alt="user-photo" class="friendImage">
                </div>
-               <div class="col-md-4">
+               <div class="col-md-6">
                   <div class="card-body">
                      <h5 class="friend-name">${invitedValue}</h5>
                   </div>

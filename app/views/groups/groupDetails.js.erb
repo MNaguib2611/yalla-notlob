@@ -16,7 +16,11 @@ $('.my-card-container').empty()
 <% if @users.size != 0 %>
 $('.my-card-container').append(`<% @users.each do |user| %><div class="my-card">
           <div class="my-card-img-body">
-            <img class="card-img" src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" alt="Card image cap">
+            <% if user.image %>
+              <img src="<%= user.image %>" alt="Card image cap" style="width:85px;height:85px;" class="card-img">
+            <% else %>
+              <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="Card image cap"  style="width:85px;height:85px;" class="card-img">
+            <% end %>
           </div>
           <div class="my-card-body">
             <h6 class="card-title"><b><%= user.name %></b></h6>

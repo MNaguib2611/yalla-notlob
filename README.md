@@ -12,6 +12,15 @@ It is a Web Application for automating the ordering process between friends.
 2. Install Rails version 6.0.2.2
 3. Install MySQL Database Engine
 4. Create an empty database called **yalla_notlob**
+5. Edit database.yml and set ``username`` , `` password`` and `` host`` of your database engine. This will allow us to run the migrations.
+6. Run the Following command to install the dependencies of the project 
+```bash
+	bundle install
+```
+7. Run the Following command to migrate the database tables
+```bash
+	rails db:migarte
+```
 
 ## Usage
 

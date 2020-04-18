@@ -1,5 +1,5 @@
 class ModifyTableUserNotifications < ActiveRecord::Migration[6.0]
-  def change
+  def up
 
     execute <<-SQL
     ALTER TABLE user_notifications ADD notification_type enum('join', 'invitation');
@@ -9,4 +9,10 @@ class ModifyTableUserNotifications < ActiveRecord::Migration[6.0]
     SQL
 
   end
+
+  def down
+    # remove_column :user_notifications, :notification_type
+    change_column :user_notifications, :status, :string
+  end
+
 end

@@ -40,6 +40,9 @@ Run the following command to launch the app
 7. Get Notifications about Invitations to Orders or when a friend Accepts/Rejects your Invitation
 8. In the homepage, you can view your Recent Active Orders and Your Friends' orders you are joining
 
+## Built With
+
+[Ruby on Rails](https://rubyonrails.org/)
 
 ## Authors
 
